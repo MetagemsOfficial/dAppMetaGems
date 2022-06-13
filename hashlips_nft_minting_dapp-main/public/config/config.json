@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0x44cc59bDe0deA5f928bc25C71a3191A0693670aa",
+  "SCAN_LINK": "https://etherscan.io/address/0x44cc59bde0dea5f928bc25c71a3191a0693670aa",
+  "NETWORK": {
+    "NAME": "Mainnet",
+    "SYMBOL": "ETH",
+    "ID": 1
+  },
+  "NFT_NAME": "MetaGems Genesis",
+  "SYMBOL": "MetaGems Genesis",
+  "MAX_SUPPLY": 777,
+  "WEI_COST": 77700000000000000,
+  "DISPLAY_COST": 0.0777,
+  "GAS_LIMIT": 285000,
+  "MARKETPLACE": "Opeansea",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/metagemsgenesis",
+  "SHOW_BACKGROUND": true
+}
