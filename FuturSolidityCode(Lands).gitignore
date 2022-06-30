@@ -1440,7 +1440,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 }
 
-// File: witlink.sol
+// File: WOMLand.sol
 
 //SPDX-License-Identifier: MIT
 
@@ -1453,8 +1453,8 @@ contract WOMLand is ERC721Enumerable, Ownable {
 
     string public baseURI;
     string public baseExtension = ".json";
-    uint256 public cost = 0.005 ether;
-    uint256 public presaleCost = 0.005 ether;
+    uint256 public cost = 0.000 ether;
+    uint256 public presaleCost = 0.000 ether;
     uint256 public maxSupply = 7000;
     uint256 public standardSupply = 2500;
     uint256 public deluxeSupply = 2000;
@@ -1478,8 +1478,8 @@ contract WOMLand is ERC721Enumerable, Ownable {
     ) ERC721(_name, _symbol) {
         setBaseURI(_initBaseURI);
         minttokenId(msg.sender, 2500, 10);
-        minttokenId(msg.sender, 4800, 10);
-        minttokenId(msg.sender, 6200, 10);
+        minttokenId(msg.sender, 4540, 10);
+        minttokenId(msg.sender, 6040, 10);
         minttokenId(msg.sender, 6980, 10);
     }
 
@@ -1516,10 +1516,10 @@ contract WOMLand is ERC721Enumerable, Ownable {
         if(_supply <= 2540) {
             return standardCost;
         }
-        if(_supply <= 4540) {
+        if(_supply <= 4800) {
             return deluxeCost;
         }
-        if(_supply <= 6040) {
+        if(_supply <= 6200) {
             return specialCost;
         }
         if(_supply <= maxSupply) {
@@ -1530,13 +1530,13 @@ contract WOMLand is ERC721Enumerable, Ownable {
         if(_tokenId < 2500 && _mintAmount + _tokenId < 2500) {
             setstandardSupply(standardSupply - _mintAmount);
         }
-        if((2540 < _tokenId && 2540 < _tokenId + _mintAmount) && (_tokenId<4800 && _tokenId + _mintAmount<4800)) {
+        if((2540 < _tokenId && 2540 < _tokenId + _mintAmount) && (_tokenId<4540 && _tokenId + _mintAmount<4540)) {
             setdeluxeSupply(deluxeSupply - _mintAmount);
         }
-        if((4540 <_tokenId && 4540 <_tokenId + _mintAmount) && (_tokenId<6200 && _tokenId + _mintAmount<6200)) {
+        if((4540 <_tokenId && 4800 <_tokenId + _mintAmount) && (_tokenId<6040 && _tokenId + _mintAmount<6040)) {
             setspecialSupply(specialSupply - _mintAmount);
         }
-        if((6040 <_tokenId && 6040 <_tokenId + _mintAmount) && (_tokenId<6980 && _tokenId + _mintAmount<6980)) {
+        if((6040 <_tokenId && 6200 <_tokenId + _mintAmount) && (_tokenId<6980 && _tokenId + _mintAmount<6980)) {
             setsupremeSupply(supremeSupply - _mintAmount);
         }
     }
@@ -1546,7 +1546,7 @@ contract WOMLand is ERC721Enumerable, Ownable {
         require(_mintAmount > 0);
         require(supply + _mintAmount <= maxSupply);
         if (msg.sender != owner()) {
-            require((_tokenId < 2500 && _mintAmount + _tokenId < 2500) || ((2540 < _tokenId && 2540 < _tokenId + _mintAmount) && (_tokenId<4800 && _tokenId + _mintAmount<4800)) || ((4540<_tokenId && 4540<_tokenId + _mintAmount) && (_tokenId<6200 && _tokenId + _mintAmount<6200)) || ((6040<_tokenId && 6040<_tokenId + _mintAmount) && (_tokenId<6980 && _tokenId + _mintAmount<6980)), "reserved");
+            require((_tokenId < 2500 && _mintAmount + _tokenId < 2500) || ((2540 < _tokenId && 2540 < _tokenId + _mintAmount) && (_tokenId<4540 && _tokenId + _mintAmount<4540)) || ((4800<_tokenId && 4800<_tokenId + _mintAmount) && (_tokenId<6040 && _tokenId + _mintAmount<6040)) || ((6200<_tokenId && 6200<_tokenId + _mintAmount) && (_tokenId<6980 && _tokenId + _mintAmount<6980)), "reserved");
             
             require(_mintAmount <= maxMintAmount, "Mint amount exceed maximum allowed");
             require(msg.value >= needToUpdateCost(_tokenId) * _mintAmount, "Not enough to pay");
