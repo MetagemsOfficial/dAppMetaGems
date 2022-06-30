@@ -1,6 +1,7 @@
 We made this code : https://github.com/MetagemsOfficial/dAppMetaGems/blob/main/FuturSolidityCode(Lands).gitignore
 
 The goal of this Smart contract is to claim from a same webpage , 5 differents lands based on 2 differents contract and many functions based on token ID 
+* Let's start with the 4 land in the WOMLand contract, most important for the launch on 07 july.
 
 First, we already have this mint page that already work and exist : https://mint.metagems.world that is link to this contract : https://etherscan.io/address/0x44cc59bde0dea5f928bc25c71a3191a0693670aa
 
