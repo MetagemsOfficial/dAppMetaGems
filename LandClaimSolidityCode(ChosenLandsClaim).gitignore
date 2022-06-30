@@ -1,24 +1,5 @@
 // SPDX-License-Identifier: MIT
 
-/*
-:'######:::::'###:::::'######:::'######::
-'##... ##:::'## ##:::'##... ##:'##... ##:
- ##:::..:::'##:. ##:: ##:::..:: ##:::..::
-. ######::'##:::. ##: ##::::::: ##:::::::
-:..... ##: #########: ##::::::: ##:::::::
-'##::: ##: ##.... ##: ##::: ##: ##::: ##:
-. ######:: ##:::: ##:. ######::. ######::
-:......:::..:::::..:::......::::......:::
-**/
-
-// Sketchy Ape Comic Club
-
-/*
-The sketchiest comic apes on the blockchain, the Sketchy Ape Comic Club NFT Collection symbolizes 
-the merging of the physical world and the digital. Each ape was hand drawn by the artist 
-in separate layers and then ran through the HashLips Art Engine to generate 10 000 unique 
-and very special apes.
-**/
 
 // File: @openzeppelin/contracts/utils/Counters.sol
 
@@ -1149,7 +1130,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     ) internal virtual {}
 }
 
-// File: contracts/SACC.sol
+// File: contracts/ChosenLands.sol
 
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -1170,11 +1151,11 @@ contract ChosenLands is ERC721, Ownable {
   bool public paused = true;
   bool public revealed = false;
 
-  address public sabcAddress;
+  address public metagemsAddress;
 
   constructor() ERC721("WOM Chosen Lands", "WOMCL") {
     setHiddenMetadataUri("ipfs://QmVVTDeML7JcbpzeuGGdjismfuhMvGzYHtGVQ5snpiRHFQ/");
-    setsabcAddress(0xc025Ae1E8624bB19bD537710a1Ff6AfdE9Ae4e8e);
+    setmetagemsAddress(0x44cc59bDe0deA5f928bc25C71a3191A0693670aa);
   }
 
   modifier mintCompliance(uint256 _mintAmount) {
@@ -1189,9 +1170,9 @@ contract ChosenLands is ERC721, Ownable {
 
   function mint(uint256 _mintAmount) public mintCompliance(_mintAmount) {
     require(!paused, "The contract is paused!");
-    IERC721 token = IERC721(sabcAddress);
+    IERC721 token = IERC721(metagemsAddress);
     uint256 ownedAmount = token.balanceOf(msg.sender);
-    require(ownedAmount >= 1, "You don't own SABC NFTs");
+    require(ownedAmount >= 1, "You don't own metagems genesis NFTs");
 
     _mintLoop(msg.sender, _mintAmount);
   }
@@ -1247,8 +1228,8 @@ contract ChosenLands is ERC721, Ownable {
         : "";
   }
 
-  function setsabcAddress(address _newAddress) public onlyOwner {
-    sabcAddress = _newAddress;
+  function setmetagemsAddress(address _newAddress) public onlyOwner {
+    metagemsAddress = _newAddress;
   }
 
   function setRevealed(bool _state) public onlyOwner {
