@@ -18,3 +18,5 @@ We also want to understand the line 1638 (adding presale user / removing ) if it
 **If we have time, we can also integrate the actual mint button for the claim button we want to make for the metagems genesis land and the backend for it. We also have made the code if you want to take a look : https://github.com/MetagemsOfficial/dAppMetaGems/blob/main/LandClaimSolidityCode(ChosenLandsClaim).gitignore
 -> Easily you can find the free mint function at line : 1268 but we want to be sure each token id is bound to the right token id that the holder want to claim and be sure it not claimable twice 
 
+Everything optimized for blockchain mainnet launch and also for holder package or single mint gas fee (but i think for that is already optimized, but you can confirm me) 
+Thanks. 
