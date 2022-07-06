@@ -32,14 +32,33 @@ export const SpacerMedium = styled.div`
 
 // Used for providing space between components
 export const SpacerLarge = styled.div`
-  height: 32px;
-  width: 32px;
+  height: 0px;
+  width: 0px;
 `;
 
+export const StyledButton = styled.div`
+position: absolute;
+bottom: 30px;
+`;
+
+
 // Used for providing a wrapper around a component
+//flex: ${({ flex }) => (flex ? flex : 0)};
+//display: flex;
+//flex-direction: ${({ fd }) => (fd ? fd : "column")};
+//justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
+//align-items: ${({ ai }) => (ai ? ai : "flex-start")};
 export const Container = styled.div`
-  display: flex;
+  background-color: ${({ test }) => (test ? "pink" : "none")};
+  width: 100%;
+  background-image: ${({ image }) => (image ? `url(${image})` : "none")};
+  background-size: cover;
+  background-position: center;
+`;
+
+export const FlexContainer = styled.div`
   flex: ${({ flex }) => (flex ? flex : 0)};
+  display: flex;
   flex-direction: ${({ fd }) => (fd ? fd : "column")};
   justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
   align-items: ${({ ai }) => (ai ? ai : "flex-start")};
@@ -49,24 +68,77 @@ export const Container = styled.div`
   background-size: cover;
   background-position: center;
 `;
+export const smallCon = styled.div`
+  display: flex;
+  flex: ${({ flex }) => (flex ? flex : 0)};
+  flex-direction: ${({ fd }) => (fd ? fd : "column")};
+  justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
+  align-items: ${({ ai }) => (ai ? ai : "flex-start")};
+  // background-color: ${({ test }) => (test ? "pink" : "none")};
+  background-color: black;
+  width: 100%;
+  // background-image: ${({ image }) => (image ? `url(${image})` : "none")};
+  background-size: cover;
+  background-position: center;
+  border: 2px white solid;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 600px;
+  height: 100%;
+  position: relative;
+  padding-top: 30px;
+`;
+
+export const Con = styled.div`
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+grid-template-rows: 1fr;
+  // display: flex;
+  gap:10px;
+  flex: ${({ flex }) => (flex ? flex : 0)};
+  flex-direction: ${({ fd }) => (fd ? fd : "row")};
+  justify-content: ${({ jc }) => (jc ? jc : "center")};
+  align-items: ${({ ai }) => (ai ? ai : "flex-start")};
+  background-color: ${({ test }) => (test ? "pink" : "none")};
+  //width: 75%;
+  background-image: ${({ image }) => (image ? `url(${image})` : "none")};
+  background-size: cover;
+  background-position: center;
+  //margin-bottom: 5%;
+  margin: 2.5% 2px
+`;
+
+export const logoCon = styled.div`
+  position: relative;
+  left: 50%;
+  top: 60px;
+  transform: translate(-50%, -50%);
+`;
 
 export const TextTitle = styled.p`
   color: var(--primary-text);
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1;
+  width:100%
 `;
 
 export const TextSubTitle = styled.p`
   color: var(--primary-text);
-  font-size: 18px;
+  font-size: 15px;
   line-height: 1.6;
 `;
 
 export const TextDescription = styled.p`
   color: var(--primary-text);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
+`;
+
+export const TextDescription1 = styled.p`
+  color: var(--primary-text);
+  font-size: 13px;
+  line-height: 1.5;
 `;
 
 export const StyledClickable = styled.div`
