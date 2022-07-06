@@ -105,7 +105,7 @@ grid-template-rows: 1fr;
   background-size: cover;
   background-position: center;
   //margin-bottom: 5%;
-  margin: 2.5% 2px
+  // margin: 2.5% 2px;
 `;
 
 export const logoCon = styled.div`

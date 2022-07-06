@@ -170,8 +170,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 7) {
-      newMintAmount = 7;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
     }
     setMintAmount(newMintAmount);
   };
@@ -210,7 +210,8 @@ function App() {
         style={{ padding: 0, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <s.Con>
+        <s.Con
+        className="ContainerGridBox">
           {/* First box */}
           <s.smallCon>
             <s.TextTitle
@@ -354,7 +355,7 @@ function App() {
                           {feedback}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
                             disabled={claimingNft ? 1 : 0}
@@ -384,10 +385,11 @@ function App() {
                           >
                             +
                           </StyledRoundButton>
-                        </s.Container>
+                        </s.FlexContainer>
                         <s.SpacerSmall />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
+                          style={{ position: "absolute", bottom: 35 }}
                             disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
@@ -397,7 +399,7 @@ function App() {
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
-                        </s.Container>
+                        </s.FlexContainer>
                       </>
                     )}
                   </>
@@ -554,7 +556,7 @@ function App() {
                           {feedback}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
                             disabled={claimingNft ? 1 : 0}
@@ -584,10 +586,11 @@ function App() {
                           >
                             +
                           </StyledRoundButton>
-                        </s.Container>
+                        </s.FlexContainer> */}
                         <s.SpacerSmall />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
+                            style={{ position: "absolute", bottom: 35 }}
                             disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
@@ -597,7 +600,7 @@ function App() {
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
-                        </s.Container>
+                        </s.FlexContainer>
                       </>
                     )}
                   </>
@@ -760,7 +763,7 @@ function App() {
                           {feedback}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
                             disabled={claimingNft ? 1 : 0}
@@ -790,10 +793,11 @@ function App() {
                           >
                             +
                           </StyledRoundButton>
-                        </s.Container>
+                        </s.FlexContainer> */}
                         <s.SpacerSmall />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
+                            style={{ position: "absolute", bottom: 35 }}
                             disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
@@ -803,7 +807,7 @@ function App() {
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
-                        </s.Container>
+                        </s.FlexContainer>
                       </>
                     )}
                   </>
@@ -966,7 +970,7 @@ function App() {
                           {feedback}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
                             disabled={claimingNft ? 1 : 0}
@@ -996,10 +1000,11 @@ function App() {
                           >
                             +
                           </StyledRoundButton>
-                        </s.Container>
+                        </s.FlexContainer> */}
                         <s.SpacerSmall />
-                        <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
+                            style={{ position: "absolute", bottom: 35 }}
                             disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
@@ -1009,7 +1014,7 @@ function App() {
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
-                        </s.Container>
+                        </s.FlexContainer>
                       </>
                     )}
                   </>
