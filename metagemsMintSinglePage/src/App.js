@@ -109,6 +109,7 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
+  // const [tokenID, setTokenId] = useState(1); (another variable for mint)
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -119,9 +120,9 @@ function App() {
     },
     NFT_NAME: "",
     SYMBOL: "",
-    MAX_SUPPLY: 1,
-    WEI_COST: 0,
-    DISPLAY_COST: 0,
+    MAX_SUPPLYSUPREME: 1,
+    WEI_COSTSUPREME: 0,
+    DISPLAY_COSTSUPREME: 0,
     GAS_LIMIT: 0,
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
@@ -138,7 +139,7 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(mintAmount)
+      .minttokenId(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -247,7 +248,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+                  {data.totalSupply} / {CONFIG.MAX_SUPPLYSUPREME}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -523,11 +524,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            dispatch(connect());
-                            getData();
-                          }}
+                      //    onClick={(e) => {
+                          //  e.preventDefault();
+                        //    dispatch(connect());
+                          //  getData();
+                       //   }}
                         >
                           CONNECT
                         </StyledButton>
@@ -591,12 +592,12 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNft ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              claimNFTs();
-                              getData();
-                            }}
+                         //   disabled={claimingNft ? 1 : 0}
+                          //  onClick={(e) => {
+                           //   e.preventDefault();
+                           //   claimNFTs();
+                            //  getData();
+                          // }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
@@ -730,11 +731,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            dispatch(connect());
-                            getData();
-                          }}
+                        //  onClick={(e) => {
+                         //   e.preventDefault();
+                        //    dispatch(connect());
+                         //   getData();
+                         // }}
                         >
                           CONNECT
                         </StyledButton>
@@ -798,12 +799,12 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNft ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              claimNFTs();
-                              getData();
-                            }}
+                          //  disabled={claimingNft ? 1 : 0}
+                         //   onClick={(e) => {
+                          //    e.preventDefault();
+                          //    claimNFTs();
+                           //   getData();
+                          //</s.FlexContainer>  }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
@@ -937,11 +938,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            dispatch(connect());
-                            getData();
-                          }}
+                        // onClick={(e) => {
+                           // e.preventDefault();
+                           // dispatch(connect());
+                           // getData();
+                        //  }}
                         >
                           CONNECT
                         </StyledButton>
@@ -1005,12 +1006,12 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNft ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              claimNFTs();
-                              getData();
-                            }}
+                           // disabled={claimingNft ? 1 : 0}
+                           // onClick={(e) => {
+                            //  e.preventDefault();
+                            //  claimNFTs();
+                            //  getData();
+                          //  }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
                           </StyledButton>
