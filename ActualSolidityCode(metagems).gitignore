@@ -1,5 +1,5 @@
 /**
- *Submitted for verification at Etherscan.io on 2022-03-17
+ *Submitted for verification at Etherscan.io on 2022-07-07
 */
 
 // File: contracts/utils/Strings.sol
@@ -1442,7 +1442,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 }
 
-// File: witlink.sol
+// File: WOMLand.sol
 
 //SPDX-License-Identifier: MIT
 
@@ -1450,23 +1450,25 @@ pragma solidity ^0.8.7;
 
 
 
-contract WitLink is ERC721Enumerable, Ownable {
+contract WOMLand is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     string public baseURI;
     string public baseExtension = ".json";
-    uint256 public cost = 0.05 ether;
-    uint256 public presaleCost = 0.03 ether;
-    uint256 public maxSupply = 7000;
-    uint256 public standardSupply = 3213;
-    uint256 public deluxeSupply = 2023;
-    uint256 public villaSupply = 595;
-    uint256 public executiveSupply = 119;
+    uint256 public cost = 0.005 ether;
+    uint256 public presaleCost = 0.005 ether;
+    uint256 public maxSupply = 700;
+    uint256 public standardSupply = 250;
+    uint256 public deluxeSupply = 200;
+    uint256 public specialSupply = 150;
+    uint256 public supremeSupply = 100;
     uint256 public maxMintAmount = 50;
-    uint256 public standardCost = 0.12 ether;
-    uint256 public deluxeCost = 0.24 ether;
-    uint256 public villaCost = 0.59 ether;
-    uint256 public executiveCost = 1.5 ether;
+    uint256 public standardCost = 0.00 ether;
+    uint256 public deluxeCost = 0.0015 ether;
+    uint256 public specialCost = 0.0025 ether;
+    uint256 public supremeCost = 0.005 ether; 
+
+
     bool public paused = false;
     mapping(address => bool) public whitelisted;
     mapping(address => bool) public presaleWallets;
@@ -1477,10 +1479,10 @@ contract WitLink is ERC721Enumerable, Ownable {
         string memory _initBaseURI
     ) ERC721(_name, _symbol) {
         setBaseURI(_initBaseURI);
-        minttokenId(msg.sender, 3213, 10);
-        minttokenId(msg.sender, 5803, 10);
-        minttokenId(msg.sender, 6755, 10);
-        minttokenId(msg.sender, 6979, 10);
+        minttokenId(msg.sender, 25, 5);
+        minttokenId(msg.sender, 35, 5);
+        minttokenId(msg.sender, 45, 5);
+        minttokenId(msg.sender, 60, 5);
     }
 
     // internal
@@ -1493,11 +1495,11 @@ contract WitLink is ERC721Enumerable, Ownable {
     function setdeluxeCost(uint256 _newdeluxeCost) public onlyOwner {
         deluxeCost = _newdeluxeCost;
     }
-    function setvillaCost(uint256 _newvillaCost) public onlyOwner {
-        villaCost = _newvillaCost;
+    function setspecialCost(uint256 _newspecialCost) public onlyOwner {
+        specialCost = _newspecialCost;
     }
-    function setexecutiveCost(uint256 _newexecutiveCost) public onlyOwner {
-        executiveCost = _newexecutiveCost;
+    function setsupremeCost(uint256 _newsupremeCost) public onlyOwner {
+        supremeCost = _newsupremeCost;
     }
     
     function setstandardSupply(uint256 _standardSupply) internal {
@@ -1506,38 +1508,38 @@ contract WitLink is ERC721Enumerable, Ownable {
     function setdeluxeSupply(uint256 _deluxeSupply) internal {
         deluxeSupply = _deluxeSupply;
     }
-    function setvillaSupply(uint256 _villaSupply) internal {
-        villaSupply = _villaSupply;
+    function setspecialSupply(uint256 _specialSupply) internal {
+        specialSupply = _specialSupply;
     }
-    function setexecutiveSupply(uint256 _executiveSupply) internal {
-        executiveSupply = _executiveSupply;
+    function setsupremeSupply(uint256 _supremeSupply) internal {
+        supremeSupply = _supremeSupply;
     }
     function needToUpdateCost(uint256 _supply) internal view returns (uint256 _cost) {
-        if(_supply <= 3780) {
+        if(_supply <= 24) {
             return standardCost;
         }
-        if(_supply <= 6160) {
+        if(_supply <= 44) {
             return deluxeCost;
         }
-        if(_supply <= 6860) {
-            return villaCost;
+        if(_supply <= 59) {
+            return specialCost;
         }
         if(_supply <= maxSupply) {
-            return executiveCost;
+            return supremeCost;
         }
     }
     function updateSupply(uint256 _tokenId, uint256 _mintAmount) internal {
-        if(_tokenId < 3213 && _mintAmount + _tokenId < 3213) {
+        if(_tokenId < 25 && _mintAmount + _tokenId < 25) {
             setstandardSupply(standardSupply - _mintAmount);
         }
-        if((3780 < _tokenId && 3780 < _tokenId + _mintAmount) && (_tokenId<5803 && _tokenId + _mintAmount<5803)) {
+        if((24 < _tokenId && 24 < _tokenId + _mintAmount) && (_tokenId<35&& _tokenId + _mintAmount<35)) {
             setdeluxeSupply(deluxeSupply - _mintAmount);
         }
-        if((6160<_tokenId && 6160<_tokenId + _mintAmount) && (_tokenId<6755 && _tokenId + _mintAmount<6755)) {
-            setvillaSupply(villaSupply - _mintAmount);
+        if((44 <_tokenId && 44 <_tokenId + _mintAmount) && (_tokenId<45 && _tokenId + _mintAmount<45)) {
+            setspecialSupply(specialSupply - _mintAmount);
         }
-        if((6860<_tokenId && 6860<_tokenId + _mintAmount) && (_tokenId<6979 && _tokenId + _mintAmount<6979)) {
-            setexecutiveSupply(executiveSupply - _mintAmount);
+        if((59 <_tokenId && 59 <_tokenId + _mintAmount) && (_tokenId<60 && _tokenId + _mintAmount<60)) {
+            setsupremeSupply(supremeSupply - _mintAmount);
         }
     }
     function minttokenId(address _to, uint256 _tokenId, uint256 _mintAmount) public payable {
@@ -1546,7 +1548,8 @@ contract WitLink is ERC721Enumerable, Ownable {
         require(_mintAmount > 0);
         require(supply + _mintAmount <= maxSupply);
         if (msg.sender != owner()) {
-            require((_tokenId < 3213 && _mintAmount + _tokenId < 3213) || ((3780 < _tokenId && 3780 < _tokenId + _mintAmount) && (_tokenId<5803 && _tokenId + _mintAmount<5803)) || ((6160<_tokenId && 6160<_tokenId + _mintAmount) && (_tokenId<6755 && _tokenId + _mintAmount<6755)) || ((6860<_tokenId && 6860<_tokenId + _mintAmount) && (_tokenId<6979 && _tokenId + _mintAmount<6979)), "reserved");
+            require((_tokenId < 25 && _mintAmount + _tokenId < 25) || ((24 < _tokenId && 24 < _tokenId + _mintAmount) && (_tokenId < 35 && _tokenId + _mintAmount < 35)) || ((44 <_tokenId && 44 <_tokenId + _mintAmount) && (_tokenId<44 && _tokenId + _mintAmount<44)) || ((45 < _tokenId && 45 < _tokenId + _mintAmount) && (_tokenId < 60 && _tokenId + _mintAmount < 60)), "reserved");
+            
             require(_mintAmount <= maxMintAmount, "Mint amount exceed maximum allowed");
             require(msg.value >= needToUpdateCost(_tokenId) * _mintAmount, "Not enough to pay");
         }
@@ -1643,11 +1646,44 @@ contract WitLink is ERC721Enumerable, Ownable {
     function removePresaleUser(address _user) public onlyOwner {
         presaleWallets[_user] = false;
     }
-
+    
+ 
+  // minting rewards bonus for people who help.
     function withdraw() public payable onlyOwner {
-        (bool success, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
-        require(success);
-    }
+    
+    uint256 poolBalance = address(this).balance * 20 / 100;  
+    uint256 bankBalance = address(this).balance * 30 / 100;  
+    
+           (bool communitygrowth, ) = payable(0x5751E1e0EF3198f4AD2f5483a68dB699cBfECDD8).call{value: poolBalance}("");
+    require(communitygrowth);
+
+     (bool Artiste1L, ) = payable(0xa7EdeC871A0FFd6B59a3934A7FDe2246F95D520C).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste1L);
+    (bool Artiste2M, ) = payable(0xf6B861f72519b3b886bfb77B69102C6B8BF407d1).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste2M);
+    (bool Artiste3A, ) = payable(0xd0F97bbdA331e59BDFF98BC52Aa450D6c47A2B72).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste3A);
+    (bool Artiste4J, ) = payable(0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste4J);
+    (bool Artiste5Y, ) = payable(0xabcDF05C0Aef28CeD80b3d6CD107E89647A02954).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste5Y);
+      (bool Artiste6Al, ) = payable(0xdf64D15e99df3d6f705511EBa0efc210C6F961b7).call{value: bankBalance * 25 / 1000}("");
+    require(Artiste6Al);
+    (bool Tech1M, ) = payable(0x1203047241969b34fc6fafd67bE790223D620Fe0).call{value: bankBalance * 25 / 1000}("");
+    require(Tech1M);
+    (bool Tech2L, ) = payable(0x43a191060D906b44686DD747fF4b796D11ABC4a2).call{value: bankBalance * 25 / 1000}("");
+    require(Tech2L);
+
+
+    //Metabank
+    (bool metaversebank, ) = payable(0x7cb0699dB6ff4BccC9BAd16D5156fB6EC52a9212).call{value: bankBalance}("");
+    require(metaversebank);
+ 
+    //founder
+    uint256 founderBalance = address(this).balance;  
+    (bool founder1, ) = payable(0x6e49117CceF4B1bDBd3cE5118910f3D17D953843).call{value: founderBalance * 50 / 100}("");
+    require(founder1);
+    (bool founder2, ) = payable(0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf).call{value: founderBalance * 50 / 100}("");
+    require(founder2);
+  }
 }
