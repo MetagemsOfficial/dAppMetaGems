@@ -92,7 +92,7 @@ export const smallCon = styled.div`
 export const Con = styled.div`
 display: grid;
 grid-template-columns: repeat(4, 1fr);
-grid-template-rows: 1fr 1fr;
+grid-template-rows: auto 1fr;
 grid-template-areas: "main-box main-box main-box main-box" "box1 box2 box3 box4";
   // display: flex;
   gap:10px;
