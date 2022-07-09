@@ -1,0 +1,29 @@
+@media only screen and (max-width: 810px) {
+    .ContainerGridBox {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: repeat(5, 1fr) !important;
+        grid-template-areas: "main-box" "box1" "box2" "box3" "box4" !important;
+    }
+    .mainBox{
+        margin: 0 !important;    
+    }
+}
+.mainBox{
+    margin: 0 20%;
+    width: auto !important;
+    grid-area: main-box;
+
+}
+
+.LandBox.box1{
+    grid-area: box1;
+}
+.LandBox.box2{
+    grid-area: box2;
+}
+.LandBox.box3{
+    grid-area: box3;
+}
+.LandBox.box4{
+    grid-area: box4;
+}

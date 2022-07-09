@@ -212,9 +212,24 @@ function App() {
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
         <s.Con
-        className="ContainerGridBox">
+          className="ContainerGridBox">
+          {/* mainBox */}
+          <s.smallCon
+            className="mainBox">
+            <s.TextTitle
+              style={{
+                textAlign: "center",
+                fontSize: 30,
+                fontWeight: "bold",
+                color: "var(--accent-text)",
+              }}
+            >
+              Main Box
+            </s.TextTitle>
+          </s.smallCon>
           {/* First box */}
-          <s.smallCon>
+          <s.smallCon
+            className="LandBox box1">
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -390,7 +405,7 @@ function App() {
                         <s.SpacerSmall />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
-                          style={{ position: "absolute", bottom: 35 }}
+                            style={{ position: "absolute", bottom: 35 }}
                             disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
@@ -415,7 +430,8 @@ function App() {
             <s.SpacerMedium />
           </s.smallCon>
           {/* Second Box */}
-          <s.smallCon>
+          <s.smallCon
+            className="LandBox box2">
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -524,11 +540,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                      //    onClick={(e) => {
-                          //  e.preventDefault();
+                        //    onClick={(e) => {
+                        //  e.preventDefault();
                         //    dispatch(connect());
-                          //  getData();
-                       //   }}
+                        //  getData();
+                        //   }}
                         >
                           CONNECT
                         </StyledButton>
@@ -592,11 +608,11 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                         //   disabled={claimingNft ? 1 : 0}
+                          //   disabled={claimingNft ? 1 : 0}
                           //  onClick={(e) => {
-                           //   e.preventDefault();
-                           //   claimNFTs();
-                            //  getData();
+                          //   e.preventDefault();
+                          //   claimNFTs();
+                          //  getData();
                           // }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
@@ -616,7 +632,8 @@ function App() {
             <s.SpacerMedium />
           </s.smallCon>
           {/* Third Box */}
-          <s.smallCon>
+          <s.smallCon
+            className="LandBox box3">
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -732,10 +749,10 @@ function App() {
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
                         //  onClick={(e) => {
-                         //   e.preventDefault();
+                        //   e.preventDefault();
                         //    dispatch(connect());
-                         //   getData();
-                         // }}
+                        //   getData();
+                        // }}
                         >
                           CONNECT
                         </StyledButton>
@@ -800,10 +817,10 @@ function App() {
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
                           //  disabled={claimingNft ? 1 : 0}
-                         //   onClick={(e) => {
+                          //   onClick={(e) => {
                           //    e.preventDefault();
                           //    claimNFTs();
-                           //   getData();
+                          //   getData();
                           //</s.FlexContainer>  }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
@@ -823,7 +840,8 @@ function App() {
             <s.SpacerMedium />
           </s.smallCon>
           {/* Fourth Box */}
-          <s.smallCon>
+          <s.smallCon
+            className="LandBox box4">
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -939,9 +957,9 @@ function App() {
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
                         // onClick={(e) => {
-                           // e.preventDefault();
-                           // dispatch(connect());
-                           // getData();
+                        // e.preventDefault();
+                        // dispatch(connect());
+                        // getData();
                         //  }}
                         >
                           CONNECT
@@ -1006,11 +1024,11 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                           // disabled={claimingNft ? 1 : 0}
-                           // onClick={(e) => {
-                            //  e.preventDefault();
-                            //  claimNFTs();
-                            //  getData();
+                          // disabled={claimingNft ? 1 : 0}
+                          // onClick={(e) => {
+                          //  e.preventDefault();
+                          //  claimNFTs();
+                          //  getData();
                           //  }}
                           >
                             {claimingNft ? "BUSY" : "BUY"}
