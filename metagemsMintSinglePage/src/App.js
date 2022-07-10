@@ -106,10 +106,24 @@ function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
-  const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
-  const [mintAmount, setMintAmount] = useState(1);
-  // const [tokenID, setTokenId] = useState(1); (another variable for mint)
+  const [claimingNftBasic, setClaimingNftBasic] = useState(false);
+  const [feedbackBasic, setFeedbackBasic] = useState(`Click buy to mint your NFT.`);
+  const [mintAmountBasic, setMintAmountBasic] = useState(1);
+  const [tokenIdBasic, setTokenIdBasic] = useState(0); 
+  const [claimingNftDeluxe, setClaimingNftDeluxe] = useState(false);
+  const [feedbackDeluxe, setFeedbackDeluxe] = useState(`Click buy to mint your NFT.`);
+  const [mintAmountDeluxe, setMintAmountDeluxe] = useState(1);
+  const [tokenIdDeluxe, setTokenIdDeluxe] = useState(0); 
+  const [claimingNftSpecial, setClaimingNftSpecial] = useState(false);
+  const [feedbackSpecial, setFeedbackSpecial] = useState(`Click buy to mint your NFT.`);
+  const [mintAmountSpecial, setMintAmountSpecial] = useState(1);
+  const [tokenIdSpecial, setTokenIdSpecial] = useState(0); 
+  const [claimingNftSupreme, setClaimingNftSupreme] = useState(false);
+  const [feedbackSupreme, setFeedbackSupreme] = useState(`Click buy to mint your NFT.`);
+  const [mintAmountSupreme, setMintAmountSupreme] = useState(0);
+  const [tokenIdSupreme, setTokenIdSupreme] = useState(1); 
+  
+  
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -120,6 +134,15 @@ function App() {
     },
     NFT_NAME: "",
     SYMBOL: "",
+    MAX_SUPPLYBASIC: 1,
+    WEI_COSTBASIC: 0,
+    DISPLAY_COSTBASIC: 0,
+    MAX_SUPPLYDELUXE: 1,
+    WEI_COSTDELUXE: 0,
+    DISPLAY_COSTDELUXE: 0,
+    MAX_SUPPLYSPECIAL: 1,
+    WEI_COSTSPECIAL: 0,
+    DISPLAY_COSTSPECIAL: 0,
     MAX_SUPPLYSUPREME: 1,
     WEI_COSTSUPREME: 0,
     DISPLAY_COSTSUPREME: 0,
@@ -129,17 +152,17 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const claimNFTs = () => {
-    let cost = CONFIG.WEI_COST;
+  const claimNFTsBasic = () => {
+    let cost = CONFIG.WEI_COSTBASIC;
     let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
+    let totalCostWei = String(cost * mintAmountBasic);
+    let totalGasLimit = String(gasLimit * mintAmountBasic);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNft(true);
+    setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNftBasic(true);
     blockchain.smartContract.methods
-      .minttokenId(mintAmount)
+      .minttokenId(blockchain.account, tokenIdBasic, mintAmountBasic)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -148,33 +171,170 @@ function App() {
       })
       .once("error", (err) => {
         console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
+        setFeedbackBasic("Sorry, something went wrong please try again later.");
+        setClaimingNftBasic(false);  
       })
       .then((receipt) => {
         console.log(receipt);
-        setFeedback(
+        setFeedbackBasic(
           `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
         );
-        setClaimingNft(false);
+        setClaimingNftBasic(false);
         dispatch(fetchData(blockchain.account));
       });
   };
-
-  const decrementMintAmount = () => {
-    let newMintAmount = mintAmount - 1;
+  const claimNFTsDeluxe = () => {
+    let cost = CONFIG.WEI_COSTDELUXE;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmountDeluxe);
+    let totalGasLimit = String(gasLimit * mintAmountDeluxe);
+    console.log("Cost: ", totalCostWei);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNftBasic(true);
+    blockchain.smartContract.methods
+      .minttokenId(blockchain.account, tokenIdDeluxe, mintAmountDeluxe)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedbackDeluxe("Sorry, something went wrong please try again later.");
+        setClaimingNftDeluxe(false);  
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedbackDeluxe(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNfDeluxe(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+  const claimNFTsSpecial = () => {
+    let cost = CONFIG.WEI_COSTSPECIAL;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmountSpecial);
+    let totalGasLimit = String(gasLimit * mintAmountSpecial);
+    console.log("Cost: ", totalCostWei);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedbackSpecial(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNftSpecial(true);
+    blockchain.smartContract.methods
+      .minttokenId(blockchain.account, tokenIdSpecial, mintAmountSpecial)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedbackSpecial("Sorry, something went wrong please try again later.");
+        setClaimingNftSpecial(false);  
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedbackSpecial(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNftSpecial(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+  const claimNFTsSupreme = () => {
+    let cost = CONFIG.WEI_COSTSUPREME;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmountSupreme);
+    let totalGasLimit = String(gasLimit * mintAmountSupreme);
+    console.log("Cost: ", totalCostWei);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedbackSupreme(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNftSupreme(true);
+    blockchain.smartContract.methods
+      .minttokenId(blockchain.account, tokenIdSupreme, mintAmountSupreme)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedbackSupreme("Sorry, something went wrong please try again later.");
+        setClaimingNftSupreme(false);  
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedbackSupreme(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNftSupreme(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+  const decrementMintAmountBasic = () => {
+    let newMintAmount = mintAmountBasic - 1;
     if (newMintAmount < 1) {
       newMintAmount = 1;
     }
-    setMintAmount(newMintAmount);
+    setMintAmountBasic(newMintAmount);
   };
 
-  const incrementMintAmount = () => {
-    let newMintAmount = mintAmount + 1;
+  const incrementMintAmountBasic = () => {
+    let newMintAmount = mintAmountBasic + 1;
     if (newMintAmount > 10) {
       newMintAmount = 10;
     }
-    setMintAmount(newMintAmount);
+    setMintAmountBasic(newMintAmount);
+  };
+  const decrementMintAmountDeluxe = () => {
+    let newMintAmount = mintAmountDeluxe - 1;
+    if (newMintAmount < 1) {
+      newMintAmount = 1;
+    }
+    setMintAmountDeluxe(newMintAmount);
+  };
+
+  const incrementMintAmountDeluxe = () => {
+    let newMintAmount = mintAmountDeluxe + 1;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
+    }
+    setMintAmountDeluxe(newMintAmount);
+  };
+  const decrementMintAmountSpecial = () => {
+    let newMintAmount = mintAmountSpecial - 1;
+    if (newMintAmount < 1) {
+      newMintAmount = 1;
+    }
+    setMintAmountSpecial(newMintAmount);
+  };
+
+  const incrementMintAmountSpecial = () => {
+    let newMintAmount = mintAmountSpecial + 1;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
+    }
+    setMintAmountSpecial(newMintAmount);
+  };
+  const decrementMintAmountSupreme = () => {
+    let newMintAmount = mintAmountSupreme - 1;
+    if (newMintAmount < 1) {
+      newMintAmount = 1;
+    }
+    setMintAmountSupreme(newMintAmount);
+  };
+
+  const incrementMintAmountSupreme = () => {
+    let newMintAmount = mintAmountSupreme + 1;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
+    }
+    setMintAmountSupreme(newMintAmount);
   };
 
   const getData = () => {
@@ -269,7 +429,7 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              Standard Land (2500)
+              Basic Land (2500)
             </s.TextTitle>
             <s.logoCon>
               <StyledLogo alt={"logo"} src={"/config/images/standard.gif"} />
@@ -294,7 +454,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupply} / {CONFIG.MAX_SUPPLYSUPREME}
+                  {data.totalStandardSupply} / {CONFIG.MAX_SUPPLYBASIC}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -307,7 +467,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                {Number(data.totalStandardSupply) >= CONFIG.MAX_SUPPLYBASIC ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -329,7 +489,7 @@ function App() {
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
                     >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTBASIC}{" "}
                       {CONFIG.NETWORK.SYMBOL}.
                     </s.TextTitle>
                     <s.SpacerXSmall />
@@ -399,16 +559,16 @@ function App() {
                             color: "var(--accent-text)",
                           }}
                         >
-                          {feedback}
+                          {feedbackBasic}
                         </s.TextDescription>
                         <s.SpacerMedium />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftBasic ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              decrementMintAmount();
+                              decrementMintAmountBasic();
                             }}
                           >
                             -
@@ -420,14 +580,14 @@ function App() {
                               color: "var(--accent-text)",
                             }}
                           >
-                            {mintAmount}
+                            {mintAmountBasic}
                           </s.TextDescription>
                           <s.SpacerMedium />
                           <StyledRoundButton
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftBasic ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              incrementMintAmount();
+                              incrementMintAmountBasic();
                             }}
                           >
                             +
@@ -437,14 +597,14 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftBasic ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              claimNFTs();
+                              claimNFTsBasic();
                               getData();
                             }}
                           >
-                            {claimingNft ? "BUSY" : "BUY"}
+                            {claimingNftBasic ? "BUSY" : "BUY"}
                           </StyledButton>
                         </s.FlexContainer>
                       </>
@@ -496,7 +656,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+                  {data.totalDeluxeSupply} / {CONFIG.MAX_SUPPLYDELUXE}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -509,7 +669,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                {Number(data.totalDeluxeSupply) >= CONFIG.MAX_SUPPLYDELUXE ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -531,7 +691,7 @@ function App() {
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
                     >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTDELUXE}{" "}
                       {CONFIG.NETWORK.SYMBOL}.
                     </s.TextTitle>
                     <s.SpacerXSmall />
@@ -571,11 +731,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                        //    onClick={(e) => {
-                        //  e.preventDefault();
-                        //    dispatch(connect());
-                        //  getData();
-                        //   }}
+                            onClick={(e) => {
+                          e.preventDefault();
+                           dispatch(connect());
+                          getData();
+                           }}
                         >
                           CONNECT
                         </StyledButton>
@@ -601,16 +761,16 @@ function App() {
                             color: "var(--accent-text)",
                           }}
                         >
-                          {feedback}
+                          {feedbackDeluxe}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
+                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftDeluxe ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              decrementMintAmount();
+                              decrementMintAmountDeluxe();
                             }}
                           >
                             -
@@ -622,31 +782,31 @@ function App() {
                               color: "var(--accent-text)",
                             }}
                           >
-                            {mintAmount}
+                            {mintAmountDeluxe}
                           </s.TextDescription>
                           <s.SpacerMedium />
                           <StyledRoundButton
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftDeluxe ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              incrementMintAmount();
+                              incrementMintAmountDeluxe();
                             }}
                           >
                             +
                           </StyledRoundButton>
-                        </s.FlexContainer> */}
+                        </s.FlexContainer> 
                         <s.SpacerSmall />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                          //   disabled={claimingNft ? 1 : 0}
-                          //  onClick={(e) => {
-                          //   e.preventDefault();
-                          //   claimNFTs();
-                          //  getData();
-                          // }}
+                            disabled={claimingNftDeluxe ? 1 : 0}
+                            onClick={(e) => {
+                             e.preventDefault();
+                             claimNFTsDeluxe();
+                            getData();
+                           }}
                           >
-                            {claimingNft ? "BUSY" : "BUY"}
+                            {claimingNftDeluxe ? "BUSY" : "BUY"}
                           </StyledButton>
                         </s.FlexContainer>
                       </>
@@ -698,7 +858,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+                  {data.totalSpecialSupply} / {CONFIG.MAX_SUPPLYSPECIAL}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -711,7 +871,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                {Number(data.totalSpecialSupply) >= CONFIG.MAX_SUPPLYSPECIAL ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -733,7 +893,7 @@ function App() {
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
                     >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTSPECIAL}{" "}
                       {CONFIG.NETWORK.SYMBOL}.
                     </s.TextTitle>
                     <s.SpacerXSmall />
@@ -779,11 +939,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                        //  onClick={(e) => {
-                        //   e.preventDefault();
-                        //    dispatch(connect());
-                        //   getData();
-                        // }}
+                         onClick={(e) => {
+                           e.preventDefault();
+                            dispatch(connect());
+                          getData();
+                         }}
                         >
                           CONNECT
                         </StyledButton>
@@ -809,16 +969,16 @@ function App() {
                             color: "var(--accent-text)",
                           }}
                         >
-                          {feedback}
+                          {feedbackSpecial}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
+                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftSpecial ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              decrementMintAmount();
+                              decrementMintAmountSpecial();
                             }}
                           >
                             -
@@ -830,31 +990,31 @@ function App() {
                               color: "var(--accent-text)",
                             }}
                           >
-                            {mintAmount}
+                            {mintAmountSpecial}
                           </s.TextDescription>
                           <s.SpacerMedium />
                           <StyledRoundButton
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftSpecial ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              incrementMintAmount();
+                              incrementMintAmountSpecial();
                             }}
                           >
                             +
                           </StyledRoundButton>
-                        </s.FlexContainer> */}
+                        </s.FlexContainer> 
                         <s.SpacerSmall />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                          //  disabled={claimingNft ? 1 : 0}
-                          //   onClick={(e) => {
-                          //    e.preventDefault();
-                          //    claimNFTs();
-                          //   getData();
-                          //</s.FlexContainer>  }}
+                            disabled={claimingNftSpecial ? 1 : 0}
+                            onClick={(e) => {
+                             e.preventDefault();
+                             claimNFTsSpecial();
+                            getData();
+                           }}
                           >
-                            {claimingNft ? "BUSY" : "BUY"}
+                            {claimingNftSpecial ? "BUSY" : "BUY"}
                           </StyledButton>
                         </s.FlexContainer>
                       </>
@@ -906,7 +1066,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+                  {data.totalSupremeSupply} / {CONFIG.MAX_SUPPLYSUPREME}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -919,7 +1079,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                {Number(data.totalSupremeSupply) >= CONFIG.MAX_SUPPLYSUPREME ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -941,7 +1101,7 @@ function App() {
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
                     >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTSUPREME}{" "}
                       {CONFIG.NETWORK.SYMBOL}.
                     </s.TextTitle>
                     <s.SpacerXSmall />
@@ -987,11 +1147,11 @@ function App() {
                         <s.SpacerSmall />
                         <StyledButton
                           style={{ position: "absolute", bottom: 35 }}
-                        // onClick={(e) => {
-                        // e.preventDefault();
-                        // dispatch(connect());
-                        // getData();
-                        //  }}
+                         onClick={(e) => {
+                         e.preventDefault();
+                         dispatch(connect());
+                         getData();
+                         }}
                         >
                           CONNECT
                         </StyledButton>
@@ -1017,16 +1177,16 @@ function App() {
                             color: "var(--accent-text)",
                           }}
                         >
-                          {feedback}
+                          {feedbackSupreme}
                         </s.TextDescription>
                         <s.SpacerMedium />
-                        {/* <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftSupreme ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              decrementMintAmount();
+                              decrementMintAmountSupreme();
                             }}
                           >
                             -
@@ -1038,31 +1198,31 @@ function App() {
                               color: "var(--accent-text)",
                             }}
                           >
-                            {mintAmount}
+                            {mintAmountSupreme}
                           </s.TextDescription>
                           <s.SpacerMedium />
                           <StyledRoundButton
-                            disabled={claimingNft ? 1 : 0}
+                            disabled={claimingNftSupreme ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              incrementMintAmount();
+                              incrementMintAmountSupreme();
                             }}
                           >
                             +
                           </StyledRoundButton>
-                        </s.FlexContainer> */}
+                        </s.FlexContainer> 
                         <s.SpacerSmall />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
                           <StyledButton
                             style={{ position: "absolute", bottom: 35 }}
-                          // disabled={claimingNft ? 1 : 0}
-                          // onClick={(e) => {
-                          //  e.preventDefault();
-                          //  claimNFTs();
-                          //  getData();
-                          //  }}
+                           disabled={claimingNftSupreme ? 1 : 0}
+                           onClick={(e) => {
+                            e.preventDefault();
+                            claimNFTsSupreme();
+                            getData();
+                            }}
                           >
-                            {claimingNft ? "BUSY" : "BUY"}
+                            {claimingNftSupreme ? "BUSY" : "BUY"}
                           </StyledButton>
                         </s.FlexContainer>
                       </>

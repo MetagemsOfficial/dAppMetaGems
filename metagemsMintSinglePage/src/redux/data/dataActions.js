@@ -29,6 +29,24 @@ export const fetchData = () => {
         .getState()
         .blockchain.smartContract.methods.totalSupply()
         .call();
+        let totalStandardSupply = await store
+        .getState()
+        .blockchain.smartContract.methods.totalStandardSupply()
+        .call();
+        let totalDeluxeSupply = await store
+        .getState()
+        .blockchain.smartContract.methods.totalDeluxeSupply()
+        .call();
+
+        let totalSpecialSupply = await store
+        .getState()
+        .blockchain.smartContract.methods.totalSpecialSupply()
+        .call();
+        let totalSupremeSupply = await store
+        .getState()
+        .blockchain.smartContract.methods.totalSupremeSupply()
+        .call();
+
       // let cost = await store
       //   .getState()
       //   .blockchain.smartContract.methods.cost()
@@ -37,6 +55,10 @@ export const fetchData = () => {
       dispatch(
         fetchDataSuccess({
           totalSupply,
+          totalStandardSupply,
+          totalDeluxeSupply,
+          totalSpecialSupply,
+          totalSupremeSupply,
           // cost,
         })
       );
