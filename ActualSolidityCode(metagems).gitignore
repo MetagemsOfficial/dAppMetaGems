@@ -1,5 +1,5 @@
 /**
- *Submitted for verification at Etherscan.io on 2022-07-07
+ *Submitted for verification at Etherscan.io on 2022-07-10
 */
 
 // File: contracts/utils/Strings.sol
@@ -708,6 +708,27 @@ interface IERC721Enumerable is IERC721 {
     function totalSupply() external view returns (uint256);
 
     /**
+     * @dev Returns the total amount of tokens stored by the contract in Standard.
+     */
+    function totalStandardSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the total amount of tokens stored by the contract in Deluxe.
+     */
+    function totalDeluxeSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the total amount of tokens stored by the contract in Special.
+     */
+    function totalSpecialSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the total amount of tokens stored by the contract in Supreme.
+     */
+    function totalSupremeSupply() external view returns (uint256);
+
+
+    /**
      * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
      * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
      */
@@ -1313,6 +1334,55 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
      */
     function totalSupply() public view virtual override returns (uint256) {
         return _allTokens.length;
+    }
+
+    /**
+     * @dev See {IERC721Enumerable-totalStandardSupply}.
+     */
+    function totalStandardSupply() public view virtual override returns (uint256) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < _allTokens.length; i++) {
+            if(_allTokens[i] < 25){
+                count++;
+            }
+        }
+        return count;
+    }
+    /**
+     * @dev See {IERC721Enumerable-totalDeluxeSupply}.
+     */
+    function totalDeluxeSupply() public view virtual override returns (uint256) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < _allTokens.length; i++) {
+            if(_allTokens[i] >= 25 && _allTokens[i] < 45){
+                count++;
+            }
+        }
+        return count;
+    }
+    /**
+     * @dev See {IERC721Enumerable-totalSpecialSupply}.
+     */
+    function totalSpecialSupply() public view virtual override returns (uint256) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < _allTokens.length; i++) {
+            if(_allTokens[i] >= 45 && _allTokens[i] < 60){
+                count++;
+            }
+        }
+        return count;
+    }
+    /**
+     * @dev See {IERC721Enumerable-totalSupremeSupply}.
+     */
+    function totalSupremeSupply() public view virtual override returns (uint256) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < _allTokens.length; i++) {
+            if(_allTokens[i] >= 60 && _allTokens[i] < 70){
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
