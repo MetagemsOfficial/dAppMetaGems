@@ -1,10 +1,11 @@
 {
-  "CONTRACT_ADDRESS": "0xfc589B993966A6C0C3DD9b3453138dC5713F899f",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0xfc589B993966A6C0C3DD9b3453138dC5713F899f",
+  "CONTRACT_ADDRESS": "0x1aB2eaF9d5F90D15316A7609eC80179376B833C3",
+  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0x1aB2eaF9d5F90D15316A7609eC80179376B833C3",
   "NETWORK": {
     "NAME": "Rinkeby",
     "SYMBOL": "ETH",
     "ID": 4
+    
   },
   "NFT_NAME": "World Of MetaGems Land",
   "SYMBOL": "WOML",

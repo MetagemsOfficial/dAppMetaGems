@@ -151,6 +151,7 @@ function App() {
     MARKETPLACE_LINK: "",
     SHOW_BACKGROUND: false,
   });
+  
 
   const claimNFTsBasic = () => {
     let cost = CONFIG.WEI_COSTBASIC;
@@ -162,7 +163,7 @@ function App() {
     setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNftBasic(true);
     blockchain.smartContract.methods
-      .minttokenId(blockchain.account, tokenIdBasic, mintAmountBasic)
+      .mintBasicLand(mintAmountBasic)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -193,7 +194,7 @@ function App() {
     setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNftBasic(true);
     blockchain.smartContract.methods
-      .minttokenId(blockchain.account, tokenIdDeluxe, mintAmountDeluxe)
+      .mintDeluxeLand(mintAmountDeluxe)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -210,7 +211,7 @@ function App() {
         setFeedbackDeluxe(
           `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
         );
-        setClaimingNfDeluxe(false);
+        setClaimingNftDeluxe(false);
         dispatch(fetchData(blockchain.account));
       });
   };
@@ -224,7 +225,7 @@ function App() {
     setFeedbackSpecial(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNftSpecial(true);
     blockchain.smartContract.methods
-      .minttokenId(blockchain.account, tokenIdSpecial, mintAmountSpecial)
+      .mintSpecialLand(mintAmountSpecial)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -255,7 +256,7 @@ function App() {
     setFeedbackSupreme(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNftSupreme(true);
     blockchain.smartContract.methods
-      .minttokenId(blockchain.account, tokenIdSupreme, mintAmountSupreme)
+      .mintSupremeLand(mintAmountSupreme)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -454,7 +455,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalStandardSupply} / {CONFIG.MAX_SUPPLYBASIC}
+                  {data.totalSupplyBasicLand} / {CONFIG.MAX_SUPPLYBASIC}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -467,7 +468,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalStandardSupply) >= CONFIG.MAX_SUPPLYBASIC ? (
+                {Number(data.totalSupplyBasicLand) >= CONFIG.MAX_SUPPLYBASIC ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -656,7 +657,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalDeluxeSupply} / {CONFIG.MAX_SUPPLYDELUXE}
+                  {data.totalSupplyDeluxeLand} / {CONFIG.MAX_SUPPLYDELUXE}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -669,7 +670,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalDeluxeSupply) >= CONFIG.MAX_SUPPLYDELUXE ? (
+                {Number(data.totalSupplyDeluxeLand) >= CONFIG.MAX_SUPPLYDELUXE ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -858,7 +859,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSpecialSupply} / {CONFIG.MAX_SUPPLYSPECIAL}
+                  {data.totalSupplySpecialLand} / {CONFIG.MAX_SUPPLYSPECIAL}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -871,7 +872,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSpecialSupply) >= CONFIG.MAX_SUPPLYSPECIAL ? (
+                {Number(data.totalSupplySpecialLand) >= CONFIG.MAX_SUPPLYSPECIAL ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -1066,7 +1067,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupremeSupply} / {CONFIG.MAX_SUPPLYSUPREME}
+                  {data.totalSupplySupremeLand} / {CONFIG.MAX_SUPPLYSUPREME}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -1079,7 +1080,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupremeSupply) >= CONFIG.MAX_SUPPLYSUPREME ? (
+                {Number(data.totalSupplySupremeLand) >= CONFIG.MAX_SUPPLYSUPREME ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}

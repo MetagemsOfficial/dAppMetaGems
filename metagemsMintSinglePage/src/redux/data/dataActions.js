@@ -29,22 +29,22 @@ export const fetchData = () => {
         .getState()
         .blockchain.smartContract.methods.totalSupply()
         .call();
-        let totalStandardSupply = await store
+        let totalSupplyBasicLand = await store
         .getState()
-        .blockchain.smartContract.methods.totalStandardSupply()
+        .blockchain.smartContract.methods.totalSupplyBasicLand()
         .call();
-        let totalDeluxeSupply = await store
+        let totalSupplyDeluxeLand = await store
         .getState()
-        .blockchain.smartContract.methods.totalDeluxeSupply()
+        .blockchain.smartContract.methods.totalSupplyDeluxeLand()
         .call();
 
-        let totalSpecialSupply = await store
+        let totalSupplySpecialLand = await store
         .getState()
-        .blockchain.smartContract.methods.totalSpecialSupply()
+        .blockchain.smartContract.methods.totalSupplySpecialLand()
         .call();
-        let totalSupremeSupply = await store
+        let totalSupplySupremeLand = await store
         .getState()
-        .blockchain.smartContract.methods.totalSupremeSupply()
+        .blockchain.smartContract.methods.totalSupplySupremeLand()
         .call();
 
       // let cost = await store
@@ -55,10 +55,11 @@ export const fetchData = () => {
       dispatch(
         fetchDataSuccess({
           totalSupply,
-          totalStandardSupply,
-          totalDeluxeSupply,
-          totalSpecialSupply,
-          totalSupremeSupply,
+          totalSupplyBasicLand,
+          totalSupplyDeluxeLand,
+          totalSupplySpecialLand,
+          totalSupplySupremeLand,
+          
           // cost,
         })
       );
