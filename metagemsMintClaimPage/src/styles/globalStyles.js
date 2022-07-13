@@ -68,6 +68,8 @@ export const FlexContainer = styled.div`
   background-size: cover;
   background-position: center;
 `;
+
+
 export const smallCon = styled.div`
   display: flex;
   flex: ${({ flex }) => (flex ? flex : 0)};

@@ -93,6 +93,36 @@
     grid-area: box4;
 }
 
+label {
+    color: rgb(208, 138, 38);;
+    display: block;
+    text-align: center;
+    margin: 10px;
+}
+
+.inputContainer {
+    margin-bottom: 5rem;
+}
+
+.div1 {
+    display: block;
+}
+
+.inputBox {
+    font-family: 'Roboto', sans-serif;
+    color: rgb(208, 138, 38);;
+    border: .2rem rgb(208, 138, 38) solid;
+    font-size: 1rem;
+	margin: 0 auto;
+    padding: .5rem .5rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    width: 100%;
+    display: block;
+    transition: all 0.3s;
+}
+
+
 @media only screen and (max-width: 810px) {
     .ContainerGridBox {
         grid-template-columns: 1fr !important;

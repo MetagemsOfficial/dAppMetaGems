@@ -106,22 +106,10 @@ function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
-  const [claimingNftBasic, setClaimingNftBasic] = useState(false);
-  const [feedbackBasic, setFeedbackBasic] = useState(`Click buy to mint your NFT.`);
-  const [mintAmountBasic, setMintAmountBasic] = useState(1);
-  const [tokenIdBasic, setTokenIdBasic] = useState(0); 
-  const [claimingNftDeluxe, setClaimingNftDeluxe] = useState(false);
-  const [feedbackDeluxe, setFeedbackDeluxe] = useState(`Click buy to mint your NFT.`);
-  const [mintAmountDeluxe, setMintAmountDeluxe] = useState(1);
-  const [tokenIdDeluxe, setTokenIdDeluxe] = useState(0); 
-  const [claimingNftSpecial, setClaimingNftSpecial] = useState(false);
-  const [feedbackSpecial, setFeedbackSpecial] = useState(`Click buy to mint your NFT.`);
-  const [mintAmountSpecial, setMintAmountSpecial] = useState(1);
-  const [tokenIdSpecial, setTokenIdSpecial] = useState(0); 
-  const [claimingNftSupreme, setClaimingNftSupreme] = useState(false);
-  const [feedbackSupreme, setFeedbackSupreme] = useState(`Click buy to mint your NFT.`);
-  const [mintAmountSupreme, setMintAmountSupreme] = useState(0);
-  const [tokenIdSupreme, setTokenIdSupreme] = useState(1); 
+  const [claimingNft, setClaimingNft] = useState(false);
+  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [mintAmount, setMintAmount] = useState(1);
+  const [tokenIds, setTokenIds] = useState(0); 
   
   
   const [CONFIG, SET_CONFIG] = useState({
@@ -134,18 +122,9 @@ function App() {
     },
     NFT_NAME: "",
     SYMBOL: "",
-    MAX_SUPPLYBASIC: 1,
-    WEI_COSTBASIC: 0,
-    DISPLAY_COSTBASIC: 0,
-    MAX_SUPPLYDELUXE: 1,
-    WEI_COSTDELUXE: 0,
-    DISPLAY_COSTDELUXE: 0,
-    MAX_SUPPLYSPECIAL: 1,
-    WEI_COSTSPECIAL: 0,
-    DISPLAY_COSTSPECIAL: 0,
-    MAX_SUPPLYSUPREME: 1,
-    WEI_COSTSUPREME: 0,
-    DISPLAY_COSTSUPREME: 0,
+    MAX_SUPPLY: 1,
+    WEI_COST: 0,
+    DISPLAY_COST: 0,
     GAS_LIMIT: 0,
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
@@ -153,17 +132,17 @@ function App() {
   });
   
 
-  const claimNFTsBasic = () => {
-    let cost = CONFIG.WEI_COSTBASIC;
+  const claimNFTs = () => {
+    let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmountBasic);
-    let totalGasLimit = String(gasLimit * mintAmountBasic);
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNftBasic(true);
+    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNft(true);
     blockchain.smartContract.methods
-      .mintBasicLand(mintAmountBasic)
+      .ownerMetaGemsMint(mintAmount, tokenIds)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -172,170 +151,38 @@ function App() {
       })
       .once("error", (err) => {
         console.log(err);
-        setFeedbackBasic("Sorry, something went wrong please try again later.");
-        setClaimingNftBasic(false);  
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);  
       })
       .then((receipt) => {
         console.log(receipt);
-        setFeedbackBasic(
+        setFeedback(
           `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
         );
-        setClaimingNftBasic(false);
+        setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
+  
   };
-  const claimNFTsDeluxe = () => {
-    let cost = CONFIG.WEI_COSTDELUXE;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmountDeluxe);
-    let totalGasLimit = String(gasLimit * mintAmountDeluxe);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedbackBasic(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNftBasic(true);
-    blockchain.smartContract.methods
-      .mintDeluxeLand(mintAmountDeluxe)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-        value: totalCostWei,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedbackDeluxe("Sorry, something went wrong please try again later.");
-        setClaimingNftDeluxe(false);  
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedbackDeluxe(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
-        setClaimingNftDeluxe(false);
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-  const claimNFTsSpecial = () => {
-    let cost = CONFIG.WEI_COSTSPECIAL;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmountSpecial);
-    let totalGasLimit = String(gasLimit * mintAmountSpecial);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedbackSpecial(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNftSpecial(true);
-    blockchain.smartContract.methods
-      .mintSpecialLand(mintAmountSpecial)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-        value: totalCostWei,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedbackSpecial("Sorry, something went wrong please try again later.");
-        setClaimingNftSpecial(false);  
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedbackSpecial(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
-        setClaimingNftSpecial(false);
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-  const claimNFTsSupreme = () => {
-    let cost = CONFIG.WEI_COSTSUPREME;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmountSupreme);
-    let totalGasLimit = String(gasLimit * mintAmountSupreme);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedbackSupreme(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNftSupreme(true);
-    blockchain.smartContract.methods
-      .mintSupremeLand(mintAmountSupreme)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-        value: totalCostWei,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedbackSupreme("Sorry, something went wrong please try again later.");
-        setClaimingNftSupreme(false);  
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedbackSupreme(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
-        setClaimingNftSupreme(false);
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-  const decrementMintAmountBasic = () => {
-    let newMintAmount = mintAmountBasic - 1;
+
+  const updateValue = (e) => {
+    const val = e.target.value;
+    setTokenIds(val)
+  }
+  const decrementMintAmount = () => {
+    let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
       newMintAmount = 1;
     }
-    setMintAmountBasic(newMintAmount);
+    setMintAmount(newMintAmount);
   };
 
-  const incrementMintAmountBasic = () => {
-    let newMintAmount = mintAmountBasic + 1;
+  const incrementMintAmount = () => {
+    let newMintAmount = mintAmount + 1;
     if (newMintAmount > 10) {
       newMintAmount = 10;
     }
-    setMintAmountBasic(newMintAmount);
-  };
-  const decrementMintAmountDeluxe = () => {
-    let newMintAmount = mintAmountDeluxe - 1;
-    if (newMintAmount < 1) {
-      newMintAmount = 1;
-    }
-    setMintAmountDeluxe(newMintAmount);
-  };
-
-  const incrementMintAmountDeluxe = () => {
-    let newMintAmount = mintAmountDeluxe + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
-    }
-    setMintAmountDeluxe(newMintAmount);
-  };
-  const decrementMintAmountSpecial = () => {
-    let newMintAmount = mintAmountSpecial - 1;
-    if (newMintAmount < 1) {
-      newMintAmount = 1;
-    }
-    setMintAmountSpecial(newMintAmount);
-  };
-
-  const incrementMintAmountSpecial = () => {
-    let newMintAmount = mintAmountSpecial + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
-    }
-    setMintAmountSpecial(newMintAmount);
-  };
-  const decrementMintAmountSupreme = () => {
-    let newMintAmount = mintAmountSupreme - 1;
-    if (newMintAmount < 1) {
-      newMintAmount = 1;
-    }
-    setMintAmountSupreme(newMintAmount);
-  };
-
-  const incrementMintAmountSupreme = () => {
-    let newMintAmount = mintAmountSupreme + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
-    }
-    setMintAmountSupreme(newMintAmount);
+    setMintAmount(newMintAmount);
   };
 
   const getData = () => {
@@ -374,7 +221,8 @@ function App() {
       >
         <s.Con
           className="ContainerGridBox">
-          {/* mainBox */}
+          
+          {/* First box */}
           <s.smallCon
             className="mainBox">
             <s.TextTitle
@@ -386,51 +234,7 @@ function App() {
                 margin: "15px 0",
               }}
             >
-              Categories
-            </s.TextTitle>
-            <mainContent className="main_content">
-              <mainTitle className="main_title">
-                <h1>Choosen One Lands (777) availables</h1>
-                <p>You need a metagems genesis to mint</p>
-              </mainTitle>
-              <mainLeft className="main_left">
-                <p>10 $Dustz per day (erc20)</p>
-                <p>5 billboards</p>
-                <p>1 random ressource (erc1150) per day</p>
-                <p>1 rare ressource (erc1150) per day</p>
-                <p>Best location on map</p>
-                <p>Builder/Marketplace discount</p>
-                <p>Twice of the normal size</p>
-              </mainLeft>
-              <mainRight className="main_right">
-                <StyledLogo alt={"logo"} src={"/config/images/standard.gif"} />
-              </mainRight>
-              <mainCta className="main_cta">
-                <StyledButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(connect());
-                    getData();
-                  }}
-                >
-                  Mint Land Now
-                </StyledButton>
-              </mainCta>
-
-            </mainContent>
-          </s.smallCon>
-          {/* First box */}
-          <s.smallCon
-            className="LandBox box1">
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              Basic Land (2500)
+              MetaGems Chosen One Land (777)
             </s.TextTitle>
             <s.logoCon>
               <StyledLogo alt={"logo"} src={"/config/images/standard.gif"} />
@@ -455,7 +259,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupplyBasicLand} / {CONFIG.MAX_SUPPLYBASIC}
+                  {data.totalSupply} / {CONFIG.MAX_SUPPLY}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -468,7 +272,7 @@ function App() {
                   </StyledLink>
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {Number(data.totalSupplyBasicLand) >= CONFIG.MAX_SUPPLYBASIC ? (
+                {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                   <>
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -490,7 +294,7 @@ function App() {
                     <s.TextTitle
                       style={{ textAlign: "center", color: "var(--accent-text)" }}
                     >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTBASIC}{" "}
+                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                       {CONFIG.NETWORK.SYMBOL}.
                     </s.TextTitle>
                     <s.SpacerXSmall />
@@ -503,18 +307,26 @@ function App() {
                     <s.TextDescription1
                       style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
                     >
-                      1 $Dustz per day (erc20)
+                      10 $Dustz per day (erc20)
                     </s.TextDescription1>
                     <s.TextDescription1
                       style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
                     >
-                      1  random resource per day
+                      2 resources per day
                     </s.TextDescription1>
                     <s.TextDescription1
                       style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
                     >
-                      10 per transactions max.
+            
+                      5  billboards
                     </s.TextDescription1>
+                    <s.TextDescription1
+                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
+                       
+                      >
+                      Best location on map
+                    </s.TextDescription1>
+                    
                     {/* <s.SpacerSmall /> */}
                     {blockchain.account === "" ||
                       blockchain.smartContract === null ? (
@@ -560,16 +372,17 @@ function App() {
                             color: "var(--accent-text)",
                           }}
                         >
-                          {feedbackBasic}
+                          {feedback}
                         </s.TextDescription>
                         <s.SpacerMedium />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
+                      
                           <StyledRoundButton
                             style={{ lineHeight: 0.4 }}
-                            disabled={claimingNftBasic ? 1 : 0}
+                            disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              decrementMintAmountBasic();
+                              decrementMintAmount();
                             }}
                           >
                             -
@@ -581,650 +394,38 @@ function App() {
                               color: "var(--accent-text)",
                             }}
                           >
-                            {mintAmountBasic}
+                            {mintAmount}
                           </s.TextDescription>
                           <s.SpacerMedium />
                           <StyledRoundButton
-                            disabled={claimingNftBasic ? 1 : 0}
+                            disabled={claimingNft ? 1 : 0}
                             onClick={(e) => {
                               e.preventDefault();
-                              incrementMintAmountBasic();
+                              incrementMintAmount();
                             }}
                           >
                             +
                           </StyledRoundButton>
                         </s.FlexContainer>
                         <s.SpacerSmall />
-                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledButton
-                            style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNftBasic ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              claimNFTsBasic();
-                              getData();
-                            }}
-                          >
-                            {claimingNftBasic ? "BUSY" : "BUY"}
-                          </StyledButton>
-                        </s.FlexContainer>
-                      </>
-                    )}
-                  </>
-                )}
-                <s.SpacerMedium />
-              </s.Container>
-              <s.SpacerLarge />
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-            </ResponsiveWrapper>
-            <s.SpacerMedium />
-          </s.smallCon>
-          {/* Second Box */}
-          <s.smallCon
-            className="LandBox box2">
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              Deluxe Land (2000)
-            </s.TextTitle>
-            <s.logoCon>
-              <StyledLogo alt={"logo"} src={"/config/images/standard2.gif"} />
-            </s.logoCon>
-            <s.SpacerSmall />
-            <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-              <s.SpacerLarge />
-              <s.Container
-                flex={2}
-                jc={"center"}
-                ai={"center"}
-
-              >
-                <s.TextTitle
-                  style={{
-                    textAlign: "center",
-                    fontSize: 30,
-                    fontWeight: "bold",
-                    color: "var(--accent-text)",
-                  }}
-                >
-                  {data.totalSupplyDeluxeLand} / {CONFIG.MAX_SUPPLYDELUXE}
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{
-                    textAlign: "center",
-                    color: "var(--primary-text)",
-                  }}
-                >
-                  <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                    {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                  </StyledLink>
-                </s.TextDescription>
-                <s.SpacerSmall />
-                {Number(data.totalSupplyDeluxeLand) >= CONFIG.MAX_SUPPLYDELUXE ? (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      The sale has ended.
-                    </s.TextTitle>
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      You can still find {CONFIG.NFT_NAME} on
-                    </s.TextDescription>
-                    <s.SpacerSmall />
-                    <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                      {CONFIG.MARKETPLACE}
-                    </StyledLink>
-                  </>
-                ) : (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTDELUXE}{" "}
-                      {CONFIG.NETWORK.SYMBOL}.
-                    </s.TextTitle>
-                    <s.SpacerXSmall />
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      Excluding gas fees.
-                    </s.TextDescription>
-                    <s.SpacerXSmall />
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      2 $Dustz per day (erc20)
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      1 billboard
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      1 random resource per day
-                    </s.TextDescription1>
-                    <s.SpacerSmall />
-                    {blockchain.account === "" ||
-                      blockchain.smartContract === null ? (
-                      <s.FlexContainer ai={"center"} jc={"center"}>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          Connect to the {CONFIG.NETWORK.NAME} network
-                        </s.TextDescription>
-                        <s.SpacerSmall />
-                        <StyledButton
-                          style={{ position: "absolute", bottom: 35 }}
-                            onClick={(e) => {
-                          e.preventDefault();
-                           dispatch(connect());
-                          getData();
-                           }}
-                        >
-                          CONNECT
-                        </StyledButton>
-                        {blockchain.errorMsg !== "" ? (
-                          <>
-                            <s.SpacerSmall />
-                            <s.TextDescription
-                              style={{
-                                textAlign: "center",
-                                color: "var(--accent-text)",
+                        <s.FlexContainer ai={"center"} jc={"center"} fd={"column"}>
+                          <div>
+                            <label>Token ID:</label>
+                            <input className="inputBox" type= 'text' placeholder="1, 4, 8" onChange={(e) => updateValue(e)} />
+                            <br></br>
+                          </div>
+                          
+                            <StyledButton
+                              disabled={claimingNft ? 1 : 0}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                claimNFTs();
+                                getData();
                               }}
                             >
-                              {blockchain.errorMsg}
-                            </s.TextDescription>
-                          </>
-                        ) : null}
-                      </s.FlexContainer>
-                    ) : (
-                      <>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {feedbackDeluxe}
-                        </s.TextDescription>
-                        <s.SpacerMedium />
-                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledRoundButton
-                            style={{ lineHeight: 0.4 }}
-                            disabled={claimingNftDeluxe ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              decrementMintAmountDeluxe();
-                            }}
-                          >
-                            -
-                          </StyledRoundButton>
-                          <s.SpacerMedium />
-                          <s.TextDescription
-                            style={{
-                              textAlign: "center",
-                              color: "var(--accent-text)",
-                            }}
-                          >
-                            {mintAmountDeluxe}
-                          </s.TextDescription>
-                          <s.SpacerMedium />
-                          <StyledRoundButton
-                            disabled={claimingNftDeluxe ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              incrementMintAmountDeluxe();
-                            }}
-                          >
-                            +
-                          </StyledRoundButton>
-                        </s.FlexContainer> 
-                        <s.SpacerSmall />
-                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledButton
-                            style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNftDeluxe ? 1 : 0}
-                            onClick={(e) => {
-                             e.preventDefault();
-                             claimNFTsDeluxe();
-                            getData();
-                           }}
-                          >
-                            {claimingNftDeluxe ? "BUSY" : "BUY"}
-                          </StyledButton>
-                        </s.FlexContainer>
-                      </>
-                    )}
-                  </>
-                )}
-                <s.SpacerMedium />
-              </s.Container>
-              <s.SpacerLarge />
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-            </ResponsiveWrapper>
-            <s.SpacerMedium />
-          </s.smallCon>
-          {/* Third Box */}
-          <s.smallCon
-            className="LandBox box3">
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              Special Land (1500)
-            </s.TextTitle>
-            <s.logoCon>
-              <StyledLogo alt={"logo"} src={"/config/images/standard3.gif"} />
-            </s.logoCon>
-            <s.SpacerSmall />
-            <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-              <s.SpacerLarge />
-              <s.Container
-                flex={1}
-                jc={"center"}
-                ai={"center"}
-
-              >
-                <s.TextTitle
-                  style={{
-                    textAlign: "center",
-                    fontSize: 30,
-                    fontWeight: "bold",
-                    color: "var(--accent-text)",
-                  }}
-                >
-                  {data.totalSupplySpecialLand} / {CONFIG.MAX_SUPPLYSPECIAL}
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{
-                    textAlign: "center",
-                    color: "var(--primary-text)",
-                  }}
-                >
-                  <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                    {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                  </StyledLink>
-                </s.TextDescription>
-                <s.SpacerSmall />
-                {Number(data.totalSupplySpecialLand) >= CONFIG.MAX_SUPPLYSPECIAL ? (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      The sale has ended.
-                    </s.TextTitle>
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      You can still find {CONFIG.NFT_NAME} on
-                    </s.TextDescription>
-                    <s.SpacerSmall />
-                    <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                      {CONFIG.MARKETPLACE}
-                    </StyledLink>
-                  </>
-                ) : (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTSPECIAL}{" "}
-                      {CONFIG.NETWORK.SYMBOL}.
-                    </s.TextTitle>
-                    <s.SpacerXSmall />
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      Excluding gas fees.
-                    </s.TextDescription>
-                    <s.SpacerXSmall />
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      3 $Dustz per day (erc20)
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      2 billboards
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      2 randoms ressources per day
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      Builder/Marketplace Discount
-                    </s.TextDescription1>
-
-                    {/* <s.SpacerSmall /> */}
-                    {blockchain.account === "" ||
-                      blockchain.smartContract === null ? (
-                      <s.FlexContainer ai={"center"} jc={"center"}>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          Connect to the {CONFIG.NETWORK.NAME} network
-                        </s.TextDescription>
-                        <s.SpacerSmall />
-                        <StyledButton
-                          style={{ position: "absolute", bottom: 35 }}
-                         onClick={(e) => {
-                           e.preventDefault();
-                            dispatch(connect());
-                          getData();
-                         }}
-                        >
-                          CONNECT
-                        </StyledButton>
-                        {blockchain.errorMsg !== "" ? (
-                          <>
-                            <s.SpacerSmall />
-                            <s.TextDescription
-                              style={{
-                                textAlign: "center",
-                                color: "var(--accent-text)",
-                              }}
-                            >
-                              {blockchain.errorMsg}
-                            </s.TextDescription>
-                          </>
-                        ) : null}
-                      </s.FlexContainer>
-                    ) : (
-                      <>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {feedbackSpecial}
-                        </s.TextDescription>
-                        <s.SpacerMedium />
-                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledRoundButton
-                            style={{ lineHeight: 0.4 }}
-                            disabled={claimingNftSpecial ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              decrementMintAmountSpecial();
-                            }}
-                          >
-                            -
-                          </StyledRoundButton>
-                          <s.SpacerMedium />
-                          <s.TextDescription
-                            style={{
-                              textAlign: "center",
-                              color: "var(--accent-text)",
-                            }}
-                          >
-                            {mintAmountSpecial}
-                          </s.TextDescription>
-                          <s.SpacerMedium />
-                          <StyledRoundButton
-                            disabled={claimingNftSpecial ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              incrementMintAmountSpecial();
-                            }}
-                          >
-                            +
-                          </StyledRoundButton>
-                        </s.FlexContainer> 
-                        <s.SpacerSmall />
-                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledButton
-                            style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNftSpecial ? 1 : 0}
-                            onClick={(e) => {
-                             e.preventDefault();
-                             claimNFTsSpecial();
-                            getData();
-                           }}
-                          >
-                            {claimingNftSpecial ? "BUSY" : "BUY"}
-                          </StyledButton>
-                        </s.FlexContainer>
-                      </>
-                    )}
-                  </>
-                )}
-                <s.SpacerMedium />
-              </s.Container>
-              <s.SpacerLarge />
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-            </ResponsiveWrapper>
-            <s.SpacerMedium />
-          </s.smallCon>
-          {/* Fourth Box */}
-          <s.smallCon
-            className="LandBox box4">
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              Supreme Land (1000)
-            </s.TextTitle>
-            <s.logoCon>
-              <StyledLogo alt={"logo"} src={"/config/images/standard4.gif"} />
-            </s.logoCon>
-            <s.SpacerSmall />
-            <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-              {/*<s.Container flex={1} jc={"center"} ai={"center"}>
-
-              </s.Container>*/}
-              <s.SpacerLarge />
-              <s.Container
-                flex={2}
-                jc={"center"}
-                ai={"center"}
-
-              >
-                <s.TextTitle
-                  style={{
-                    textAlign: "center",
-                    fontSize: 30,
-                    fontWeight: "bold",
-                    color: "var(--accent-text)",
-                  }}
-                >
-                  {data.totalSupplySupremeLand} / {CONFIG.MAX_SUPPLYSUPREME}
-                </s.TextTitle>
-                <s.TextDescription
-                  style={{
-                    textAlign: "center",
-                    color: "var(--primary-text)",
-                  }}
-                >
-                  <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                    {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-                  </StyledLink>
-                </s.TextDescription>
-                <s.SpacerSmall />
-                {Number(data.totalSupplySupremeLand) >= CONFIG.MAX_SUPPLYSUPREME ? (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      The sale has ended.
-                    </s.TextTitle>
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      You can still find {CONFIG.NFT_NAME} on
-                    </s.TextDescription>
-                    <s.SpacerSmall />
-                    <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
-                      {CONFIG.MARKETPLACE}
-                    </StyledLink>
-                  </>
-                ) : (
-                  <>
-                    <s.TextTitle
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COSTSUPREME}{" "}
-                      {CONFIG.NETWORK.SYMBOL}.
-                    </s.TextTitle>
-                    <s.SpacerXSmall />
-                    <s.TextDescription
-                      style={{ textAlign: "center", color: "var(--accent-text)" }}
-                    >
-                      Excluding gas fees.
-                    </s.TextDescription>
-                    {/* <s.SpacerSmall /> */}
-                    <s.SpacerXSmall />
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      5 $Dustz per day (erc20)
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      4 billboards
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      2 randoms ressources per day
-                    </s.TextDescription1>
-                    <s.TextDescription1
-                      style={{ textAlign: "center", color: "rgb(208, 138, 38)" }}
-                    >
-                      Good location on map
-                    </s.TextDescription1>
-
-                    {blockchain.account === "" ||
-                      blockchain.smartContract === null ? (
-                      <s.FlexContainer ai={"center"} jc={"center"}>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          Connect to the {CONFIG.NETWORK.NAME} network
-                        </s.TextDescription>
-                        <s.SpacerSmall />
-                        <StyledButton
-                          style={{ position: "absolute", bottom: 35 }}
-                         onClick={(e) => {
-                         e.preventDefault();
-                         dispatch(connect());
-                         getData();
-                         }}
-                        >
-                          CONNECT
-                        </StyledButton>
-                        {blockchain.errorMsg !== "" ? (
-                          <>
-                            <s.SpacerSmall />
-                            <s.TextDescription
-                              style={{
-                                textAlign: "center",
-                                color: "var(--accent-text)",
-                              }}
-                            >
-                              {blockchain.errorMsg}
-                            </s.TextDescription>
-                          </>
-                        ) : null}
-                      </s.FlexContainer>
-                    ) : (
-                      <>
-                        <s.TextDescription
-                          style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
-                          }}
-                        >
-                          {feedbackSupreme}
-                        </s.TextDescription>
-                        <s.SpacerMedium />
-                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledRoundButton
-                            style={{ lineHeight: 0.4 }}
-                            disabled={claimingNftSupreme ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              decrementMintAmountSupreme();
-                            }}
-                          >
-                            -
-                          </StyledRoundButton>
-                          <s.SpacerMedium />
-                          <s.TextDescription
-                            style={{
-                              textAlign: "center",
-                              color: "var(--accent-text)",
-                            }}
-                          >
-                            {mintAmountSupreme}
-                          </s.TextDescription>
-                          <s.SpacerMedium />
-                          <StyledRoundButton
-                            disabled={claimingNftSupreme ? 1 : 0}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              incrementMintAmountSupreme();
-                            }}
-                          >
-                            +
-                          </StyledRoundButton>
-                        </s.FlexContainer> 
-                        <s.SpacerSmall />
-                        <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledButton
-                            style={{ position: "absolute", bottom: 35 }}
-                           disabled={claimingNftSupreme ? 1 : 0}
-                           onClick={(e) => {
-                            e.preventDefault();
-                            claimNFTsSupreme();
-                            getData();
-                            }}
-                          >
-                            {claimingNftSupreme ? "BUSY" : "BUY"}
-                          </StyledButton>
+                              {claimingNft ? "BUSY" : "BUY"}
+                            </StyledButton>
+                          
                         </s.FlexContainer>
                       </>
                     )}
@@ -1241,6 +442,7 @@ function App() {
           </s.smallCon>
           {/* End */}
         </s.Con>
+        <s.SpacerMedium/>
 
         <s.Container jc={"center"} ai={"center"} style={{ width: "100%" }}>
           <s.TextDescription

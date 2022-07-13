@@ -1,11 +1,6 @@
 const initialState = {
   loading: false,
   totalSupply: 0,
-  totalSupplyBasicLand: 0,
-  totalSupplyDeluxeLand: 0,
-  totalSupplySpecialLand: 0,
-  totalSupplySupremeLand: 0,
-  
   cost: 0,
   //basicCost: 0,
   error: false,
@@ -26,10 +21,7 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         totalSupply: action.payload.totalSupply,
-        totalSupplyBasicLand: action.payload.totalSupplyBasicLand,
-        totalSupplyDeluxeLand: action.payload.totalSupplyDeluxeLand,
-        totalSupplySpecialLand: action.payload.totalSupplySpecialLand,
-        totalSupplySupremeLand: action.payload.totalSupplySupremeLand,
+        
         // cost: action.payload.cost,
         error: false,
         errorMsg: "",
