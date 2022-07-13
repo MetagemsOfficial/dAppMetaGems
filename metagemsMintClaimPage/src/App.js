@@ -109,8 +109,7 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
-  const [tokenIds, setTokenIds] = useState(0); 
-  
+  const [inputTokenList, setInputTokenList] = useState(``);  
   
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -133,6 +132,16 @@ function App() {
   
 
   const claimNFTs = () => {
+    console.log("iTL: ", inputTokenList);
+    console.log("typeof iTL: ", typeof inputTokenList);
+    console.log("iTL target.value: ", inputTokenList.target.value);
+    console.log("typeof iTLtv: ", typeof inputTokenList.target.value);
+
+    let tokenList = inputTokenList.target.value.replace(" ", "").replace("[","").replace("]","").split(",").map(function(item) {
+      return parseInt(item, 10);
+    })
+    console.log("tokenList: ", tokenList)
+
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
@@ -142,7 +151,7 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .ownerMetaGemsMint(mintAmount, tokenIds)
+      .ownerMetaGemsMint(mintAmount, tokenList)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -165,10 +174,6 @@ function App() {
   
   };
 
-  const updateValue = (e) => {
-    const val = e.target.value;
-    setTokenIds(val)
-  }
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
@@ -411,7 +416,7 @@ function App() {
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"column"}>
                           <div>
                             <label>Token ID:</label>
-                            <input className="inputBox" type= 'text' placeholder="1, 4, 8" onChange={(e) => updateValue(e)} />
+                            <input className="inputBox" type= 'text' placeholder="1, 4, 8" onChange={(e) => setInputTokenList(e)} />
                             <br></br>
                           </div>
                           
