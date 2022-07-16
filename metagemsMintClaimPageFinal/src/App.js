@@ -138,7 +138,7 @@ function App() {
     console.log("typeof iTLtv: ", typeof inputTokenList.target.value);
 
     let tokenList = inputTokenList.target.value.replace(" ", "").replace("[","").replace("]","").split(",").map(function(item) {
-      return parseInt(item, 7);
+      return parseInt(item, 10);
     })
     console.log("tokenList: ", tokenList)
 
