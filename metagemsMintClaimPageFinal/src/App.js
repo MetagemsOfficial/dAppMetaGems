@@ -242,7 +242,7 @@ function App() {
               MetaGems Chosen One Land ({CONFIG.MAX_SUPPLY})
             </s.TextTitle>
             <s.logoCon>
-              <StyledLogo alt={"logo"} src={"/config/images/WOMLandMetaGems.gif"} />
+              <StyledLogo alt={"logo"} src={"/config/images/WOMLandMetagems.gif"} />
             </s.logoCon>
             <s.SpacerSmall />
             <ResponsiveWrapper flex={1} style={{ padding: 34 }} test>
