@@ -138,7 +138,7 @@ function App() {
     console.log("typeof iTLtv: ", typeof inputTokenList.target.value);
 
     let tokenList = inputTokenList.target.value.replace(" ", "").replace("[","").replace("]","").split(",").map(function(item) {
-      return parseInt(item, 7);
+      return parseInt(item, 10);
     })
     console.log("tokenList: ", tokenList)
 
@@ -242,7 +242,7 @@ function App() {
               MetaGems Chosen One Land ({CONFIG.MAX_SUPPLY})
             </s.TextTitle>
             <s.logoCon>
-              <StyledLogo alt={"logo"} src={"/config/images/WOMLandMetaGems.gif"} />
+              <StyledLogo alt={"logo"} src={"/config/images/womlandMetagems.gif"} />
             </s.logoCon>
             <s.SpacerSmall />
             <ResponsiveWrapper flex={1} style={{ padding: 34 }} test>

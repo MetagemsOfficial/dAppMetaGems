@@ -139,4 +139,5 @@ label {
         grid-template-rows: auto auto auto auto !important;
         grid-template-areas: "main-title""main-icon""main-left""main-cta" !important;
     }
+    
 }
