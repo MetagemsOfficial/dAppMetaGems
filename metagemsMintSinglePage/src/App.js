@@ -374,51 +374,6 @@ function App() {
       >
         <s.Con
           className="ContainerGridBox">
-          {/* mainBox */}
-          <s.smallCon
-            className="mainBox">
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 30,
-                fontWeight: "bold",
-                color: "rgb(208, 138, 38)",
-                margin: "15px 0",
-              }}
-            >
-              Categories
-            </s.TextTitle>
-            <mainContent className="main_content">
-              <mainTitle className="main_title">
-                <h1>Choosen One Lands (777) availables</h1>
-                <p>You need a metagems genesis to mint</p>
-              </mainTitle>
-              <mainLeft className="main_left">
-                <p>10 $Dustz per day (erc20)</p>
-                <p>5 billboards</p>
-                <p>1 random ressource (erc1150) per day</p>
-                <p>1 rare ressource (erc1150) per day</p>
-                <p>Best location on map</p>
-                <p>Builder/Marketplace discount</p>
-                <p>Twice of the normal size</p>
-              </mainLeft>
-              <mainRight className="main_right">
-                <StyledLogo alt={"logo"} src={"/config/images/standard.gif"} />
-              </mainRight>
-              <mainCta className="main_cta">
-                <StyledButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(connect());
-                    getData();
-                  }}
-                >
-                  Mint Land Now
-                </StyledButton>
-              </mainCta>
-
-            </mainContent>
-          </s.smallCon>
           {/* First box */}
           <s.smallCon
             className="LandBox box1">
