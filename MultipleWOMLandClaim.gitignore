@@ -1965,19 +1965,18 @@ contract WOMLand is ERC721, Ownable {
 
     mapping (address => uint8) whitelistSupremeLand;
      mapping (address => uint8) whitelistSpecialLand;
-   //mapping (address => bool) mintedPenthouse;
+  mapping (address => uint256) addressList;
     
     uint256 public tokenPriceBasicLand = 0 ether;
     uint256 public tokenPriceDeluxeLand = .0015 ether;
     uint256 public tokenPriceSpecialLand = .0025 ether;
     uint256 public tokenPriceSupremeLand = 0.005 ether;
-
+  uint256 public maxMintPerAddress = 50;
     uint256 public constant maxTokens = 7000;
  
     string private _contractURI;
     
-    
-    uint256 public maxMintsPerTxOpen = 10;
+   // uint256 public maxMintsPerTxOpen = 10;
     
     constructor() public ERC721("World Of MetaGems Land", "WOML") {}
 
@@ -1997,7 +1996,8 @@ contract WOMLand is ERC721, Ownable {
     
     function mintBasicLand(uint256 quantity) external payable {
         require(totalSupplyBasicLand() + quantity <= 2500, "minting this many would exceed supply");
-        require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+        //require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+        require(addressList[msg.sender] + quantity <= maxMintPerAddress, "over address limit");
         require(msg.value >= tokenPriceBasicLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2009,7 +2009,7 @@ contract WOMLand is ERC721, Ownable {
    
     function mintDeluxeLand(uint256 quantity) external payable {
         require(totalSupplyDeluxeLand() + quantity <= 4500, "minting this many would exceed supply");
-        require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+        //require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
         require(msg.value >= tokenPriceDeluxeLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2021,7 +2021,7 @@ contract WOMLand is ERC721, Ownable {
     
     function mintSpecialLand(uint256 quantity) external payable {
         require(totalSupplySpecialLand() + quantity <= 6000, "minting this many would exceed supply");
-        require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+       // require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
         require(msg.value >= tokenPriceSpecialLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2046,7 +2046,7 @@ contract WOMLand is ERC721, Ownable {
     
     function mintSupremeLand(uint8 quantity) external payable {
         require(totalSupplySupremeLand() + quantity <= 7000, "minting this many would exceed supply");
-        require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+ //       require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
      require(msg.value >= tokenPriceSupremeLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2089,7 +2089,6 @@ contract WOMLand is ERC721, Ownable {
     function safeMintSupremeLand(address to) internal {
         uint256 tokenId = _tokenIdCounterSupremeLand.current() + 6000;
         _tokenIdCounterSupremeLand.increment();
-       // mintedSupremeLand[to] = true;
         _safeMint(to, tokenId);
     }
 
@@ -2114,7 +2113,7 @@ contract WOMLand is ERC721, Ownable {
     uint256 socialBalance = address(this).balance * 20 / 100;  
     uint256 bankBalance = address(this).balance * 30 / 100;  
     
-           (bool socialNexus, ) = payable(0x7cb0699dB6ff4BccC9BAd16D5156fB6EC52a9212).call{value: socialBalance}("");
+    (bool socialNexus, ) = payable(0x7cb0699dB6ff4BccC9BAd16D5156fB6EC52a9212).call{value: socialBalance}("");
     require(socialNexus);
 
      (bool Artiste1L, ) = payable(0xa7EdeC871A0FFd6B59a3934A7FDe2246F95D520C).call{value: bankBalance * 25 / 1000}("");
@@ -2146,10 +2145,8 @@ contract WOMLand is ERC721, Ownable {
     require(founder1);
     (bool founder2, ) = payable(0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf).call{value: founderBalance * 4875 / 10000}("");
     require(founder2);
-    (bool collabYan, ) = payable(0x69abC6eAE2362aCEe665Db1c6790Cc0F90C5c397).call{value: founderBalance * 125 / 10000}("");
+    (bool collabYan, ) = payable(0x69abC6eAE2362aCEe665Db1c6790Cc0F90C5c397).call{value: founderBalance * 25 / 1000}("");
     require(collabYan);
-    (bool collabVincent, ) = payable(0x5D2C8ad99F2714884B638e684D50792654bc1f25).call{value: founderBalance * 125 / 10000}("");
-    require(collabVincent);
 
     }
     function setWhitelistSpecialLand(address[] calldata addresses, uint8 numAllowedToMintSpecialLand) external onlyOwner {
@@ -2181,6 +2178,9 @@ function setWhitelistSupremeLand(address[] calldata addresses, uint8 numAllowedT
     }
    function settokenPriceSupremeLand(uint256 _newSupremeLandCost) public onlyOwner {
         tokenPriceSupremeLand = _newSupremeLandCost;
+    }
+     function setMaxMintPerAddress(uint256 _maxMint) external onlyOwner {
+        maxMintPerAddress = _maxMint;
     }
     
 }
