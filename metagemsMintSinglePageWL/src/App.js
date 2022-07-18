@@ -1214,7 +1214,7 @@ function App() {
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Eth) and the correct address. IMPORTANT: Once you make the purchase, the transaction can’t be undone.
+            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. IMPORTANT: Once you make the purchase, the transaction can’t be undone.
           </s.TextDescription>
           <s.SpacerSmall />
 
