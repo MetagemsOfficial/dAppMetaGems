@@ -1960,18 +1960,18 @@ contract WOMLand is ERC721, Ownable {
 
     bool public onlyWhitelisted = true;
     bool public openMint = false;
-    
     bool private initialized = false;
 
     mapping (address => uint8) whitelistSupremeLand;
-     mapping (address => uint8) whitelistSpecialLand;
-  mapping (address => uint256) addressList;
+    mapping (address => uint8) whitelistSpecialLand;
+    mapping (address => uint256) addressList;
     
     uint256 public tokenPriceBasicLand = 0 ether;
     uint256 public tokenPriceDeluxeLand = .0015 ether;
     uint256 public tokenPriceSpecialLand = .0025 ether;
     uint256 public tokenPriceSupremeLand = 0.005 ether;
-  uint256 public maxMintPerAddress = 50;
+
+    uint256 public maxMintPerAddress = 50;
     uint256 public constant maxTokens = 7000;
  
     string private _contractURI;
@@ -1984,19 +1984,15 @@ contract WOMLand is ERC721, Ownable {
     function setBaseURI(string memory _baseURI) external onlyOwner {
         _setBaseURI(_baseURI);
     }
-
     function flipWhitelistedState() public onlyOwner {
         onlyWhitelisted = !onlyWhitelisted;
     }
-
-    
     function flipMintState() public onlyOwner {
         openMint = !openMint;
     }
     
     function mintBasicLand(uint256 quantity) external payable {
         require(totalSupplyBasicLand() + quantity <= 2500, "minting this many would exceed supply");
-        //require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
         require(addressList[msg.sender] + quantity <= maxMintPerAddress, "over address limit");
         require(msg.value >= tokenPriceBasicLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
@@ -2006,10 +2002,9 @@ contract WOMLand is ERC721, Ownable {
             safeMintBasicLand(msg.sender);
         }
     }
-   
     function mintDeluxeLand(uint256 quantity) external payable {
         require(totalSupplyDeluxeLand() + quantity <= 4500, "minting this many would exceed supply");
-        //require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+        require(addressList[msg.sender] + quantity <= maxMintPerAddress, "over address limit");
         require(msg.value >= tokenPriceDeluxeLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2018,10 +2013,9 @@ contract WOMLand is ERC721, Ownable {
             safeMintDeluxeLand(msg.sender);
         }
     }
-    
     function mintSpecialLand(uint256 quantity) external payable {
         require(totalSupplySpecialLand() + quantity <= 6000, "minting this many would exceed supply");
-       // require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
+       require(addressList[msg.sender] + quantity <= maxMintPerAddress, "over address limit");
         require(msg.value >= tokenPriceSpecialLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
@@ -2030,72 +2024,70 @@ contract WOMLand is ERC721, Ownable {
             safeMintSpecialLand(msg.sender);
         }
     }
-    function mintSpecialLandWhitelist() external payable {
-        require(totalSupplySpecialLand() + 1 <= 6000, "minting this many would exceed supply");
-        require(msg.value >= tokenPriceSpecialLand, "not enough ether sent");
-        require(openMint, "mint not open");
-        require(onlyWhitelisted, "whitelist mint has closed");
-        if (onlyWhitelisted) {
-
+        function mintSpecialLandWhitelist() external payable {
+            require(totalSupplySpecialLand() + 1 <= 6000, "minting this many would exceed supply");
+            require(msg.value >= tokenPriceSpecialLand, "not enough ether sent");
+            require(openMint, "mint not open");
+            require(onlyWhitelisted, "whitelist mint has closed");
+            if (onlyWhitelisted) {
             require(1 <= whitelistSpecialLand[msg.sender], "exceeded max available to purchase");
-        }
-        require(msg.sender == tx.origin, "no contracts please");
-        whitelistSpecialLand[msg.sender] -= 1;
+            }
+            require(msg.sender == tx.origin, "no contracts please");
+            whitelistSpecialLand[msg.sender] -= 1;
             safeMintSpecialLand(msg.sender);
-        }
-    
+    }
     function mintSupremeLand(uint8 quantity) external payable {
         require(totalSupplySupremeLand() + quantity <= 7000, "minting this many would exceed supply");
- //       require(quantity <= maxMintsPerTxOpen, "trying to mint too many at a time");
-     require(msg.value >= tokenPriceSupremeLand * quantity, "not enough ether sent");
+        require(addressList[msg.sender] + quantity <= maxMintPerAddress, "over address limit");
+        require(msg.value >= tokenPriceSupremeLand * quantity, "not enough ether sent");
         require(openMint, "mint not open");
         require(!onlyWhitelisted, "not open to the public yet");
-      //  require(!mintedSupremeLand[msg.sender], "can only mint 1 SupremeLand per wallet");
         require(msg.sender == tx.origin, "no contracts please");
          for (uint256 i = 0; i < quantity; i++) {
             safeMintSupremeLand(msg.sender);
         }
     }
-    function mintSupremeLandWhitelist() external payable {
-        require(totalSupplySupremeLand() + 1 <= 7000, "minting this would exceed supply");
-        require(msg.value >= tokenPriceSupremeLand, "not enough ether sent");
-        require(openMint, "mint not open");
-        require(onlyWhitelisted, "whitelist mint has closed");
-        if (onlyWhitelisted) {
-
+        function mintSupremeLandWhitelist() external payable {
+            require(totalSupplySupremeLand() + 1 <= 7000, "minting this would exceed supply");
+            require(msg.value >= tokenPriceSupremeLand, "not enough ether sent");
+            require(openMint, "mint not open");
+            require(onlyWhitelisted, "whitelist mint has closed");
+            if (onlyWhitelisted) {
             require(1 <= whitelistSupremeLand[msg.sender], "exceeded max available to purchase");
-        }
-        //require(!mintedPenthouse[msg.sender], "can only mint 1 penthouse per wallet");
-        require(msg.sender == tx.origin, "no contracts please");
-        whitelistSupremeLand[msg.sender] -= 1;
-        safeMintSupremeLand(msg.sender);
+             }
+             require(msg.sender == tx.origin, "no contracts please");
+             whitelistSupremeLand[msg.sender] -= 1;
+             safeMintSupremeLand(msg.sender);
     }
 
     function safeMintBasicLand(address to) internal {
         uint256 tokenId = _tokenIdCounterBasicLand.current();
         _tokenIdCounterBasicLand.increment();
+        addressList[to]++;
         _safeMint(to, tokenId);
     }
     function safeMintDeluxeLand(address to) internal {
         uint256 tokenId = _tokenIdCounterDeluxeLand.current() + 2500;
         _tokenIdCounterDeluxeLand.increment();
+         addressList[to]++;
         _safeMint(to, tokenId);
     }
     function safeMintSpecialLand(address to) internal {
         uint256 tokenId = _tokenIdCounterSpecialLand.current() + 4500;
         _tokenIdCounterSpecialLand.increment();
+         addressList[to]++;
         _safeMint(to, tokenId);
     }
     function safeMintSupremeLand(address to) internal {
         uint256 tokenId = _tokenIdCounterSupremeLand.current() + 6000;
         _tokenIdCounterSupremeLand.increment();
+         addressList[to]++;
         _safeMint(to, tokenId);
     }
 
     function totalSupply() public view override returns (uint) {
         return totalSupplyBasicLand() + totalSupplyDeluxeLand() + totalSupplySpecialLand() + totalSupplySupremeLand();
     }
-
     function totalSupplyBasicLand() public view returns (uint) {
         return _tokenIdCounterBasicLand.current();
     }
@@ -2108,7 +2100,8 @@ contract WOMLand is ERC721, Ownable {
     function totalSupplySupremeLand() public view returns (uint) {
         return _tokenIdCounterSupremeLand.current();
     }
- function withdraw() public payable onlyOwner {
+
+    function withdraw() public payable onlyOwner {
     
     uint256 socialBalance = address(this).balance * 20 / 100;  
     uint256 bankBalance = address(this).balance * 30 / 100;  
@@ -2128,12 +2121,12 @@ contract WOMLand is ERC721, Ownable {
     require(Artiste5Y);
       (bool Artiste6Al, ) = payable(0xdf64D15e99df3d6f705511EBa0efc210C6F961b7).call{value: bankBalance * 25 / 1000}("");
     require(Artiste6Al);
-    (bool Tech1M, ) = payable(0x1203047241969b34fc6fafd67bE790223D620Fe0).call{value: bankBalance * 25 / 1000}("");
-    require(Tech1M);
     (bool Tech2L, ) = payable(0x43a191060D906b44686DD747fF4b796D11ABC4a2).call{value: bankBalance * 25 / 1000}("");
     require(Tech2L);
     (bool Dev1, ) = payable(0x01656D41e041b50fc7c1eb270f7d891021937436).call{value: bankBalance * 25 / 1000}("");
     require(Dev1);
+    (bool collabYan, ) = payable(0x69abC6eAE2362aCEe665Db1c6790Cc0F90C5c397).call{value: bankBalance * 50 / 1000}("");
+    require(collabYan);
 
     //Metabank
     (bool metaversebank, ) = payable(0xf8EeD691DFB6Ae167B9284Aa7501BAe753E9263a).call{value: bankBalance}("");
@@ -2141,45 +2134,33 @@ contract WOMLand is ERC721, Ownable {
  
     //founder
     uint256 founderBalance = address(this).balance;  
-    (bool founder1, ) = payable(0x6e49117CceF4B1bDBd3cE5118910f3D17D953843).call{value: founderBalance * 4875 / 10000}("");
+    (bool founder1, ) = payable(0x6e49117CceF4B1bDBd3cE5118910f3D17D953843).call{value: founderBalance * 50 / 100}("");
     require(founder1);
-    (bool founder2, ) = payable(0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf).call{value: founderBalance * 4875 / 10000}("");
+    (bool founder2, ) = payable(0x452d73f716C34f1481898a1FDc61923c711D0f8A).call{value: founderBalance * 50 / 100}("");
     require(founder2);
-    (bool collabYan, ) = payable(0x69abC6eAE2362aCEe665Db1c6790Cc0F90C5c397).call{value: founderBalance * 25 / 1000}("");
-    require(collabYan);
 
     }
-    function setWhitelistSpecialLand(address[] calldata addresses, uint8 numAllowedToMintSpecialLand) external onlyOwner {
+     function setWhitelistSpecialLand(address[] calldata addresses, uint8 numAllowedToMintSpecialLand) external onlyOwner {
         for (uint256 i = 0; i < addresses.length; i++) {
             whitelistSpecialLand[addresses[i]] = numAllowedToMintSpecialLand;
         }
     }
-function setWhitelistSupremeLand(address[] calldata addresses, uint8 numAllowedToMintSupremeLand) external onlyOwner {
+    function setWhitelistSupremeLand(address[] calldata addresses, uint8 numAllowedToMintSupremeLand) external onlyOwner {
         for (uint256 i = 0; i < addresses.length; i++) {
             whitelistSupremeLand[addresses[i]] = numAllowedToMintSupremeLand;
         }
     }
 
-    function numAvailableToMintSpecialLand(address addr) external view returns (uint8) {
-        return whitelistSpecialLand[addr];
-    }
-
- function numAvailableToMintSupremeLand(address addr) external view returns (uint8) {
-        return whitelistSupremeLand[addr];
-    }
-       function settokenPriceBasicLand(uint256 _newBasicLandCost) public onlyOwner {
-        tokenPriceBasicLand = _newBasicLandCost;
-    }
     function settokenPriceDeluxeLand(uint256 _newDeluxeLandCost) public onlyOwner {
        tokenPriceDeluxeLand = _newDeluxeLandCost;
     }
-   function settokenPriceSpecialLand(uint256 _newSpecialLandCost) public onlyOwner {
+    function settokenPriceSpecialLand(uint256 _newSpecialLandCost) public onlyOwner {
         tokenPriceSpecialLand = _newSpecialLandCost;
     }
-   function settokenPriceSupremeLand(uint256 _newSupremeLandCost) public onlyOwner {
+    function settokenPriceSupremeLand(uint256 _newSupremeLandCost) public onlyOwner {
         tokenPriceSupremeLand = _newSupremeLandCost;
     }
-     function setMaxMintPerAddress(uint256 _maxMint) external onlyOwner {
+    function setMaxMintPerAddress(uint256 _maxMint) external onlyOwner {
         maxMintPerAddress = _maxMint;
     }
     
