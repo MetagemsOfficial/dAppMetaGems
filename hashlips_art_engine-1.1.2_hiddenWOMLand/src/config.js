@@ -6,8 +6,8 @@ const network = NETWORK.eth;
 
 // General metadata for Ethereum
 const namePrefix = "WOMLand";
-const description = "Chosen One Land is the most valuable type of Land in World of MetaGems and with the most utilities. Chosen One Land is only available to mint for the MetaGems Genesis NFT holders or on the secondary market. One MetaGems Genesis = 1 Chosen One Land Plot free mint No limit per wallet You can find more information on the MetaGems Genesis NFT and the Chosen One Land in our White Paper: https://metagems.gitbook.io/whitepaper/Mint MetaGems Genesis NTF:  https://mint.metagems.world/";
-const baseUri = "ipfs://QmeVYqPDtANLZHoetKLhPpEUN8VKGiMHTuHKy94RaFbmGD/";
+const description = "WOM Land Collection will be on 5 different generative areas of the map. The first zone, called Androth, consists of 7777 Lands which will generate a certain amount of Dustz daily depending on the tier of the Land . Each type of Land will have random resources that will surface every day which allows any player to collect, use or resell in the Metaverse. Lands are blockchain-based virtual spaces (using the ERC-721 standard for NFTs) representing property plots of World of MetaGems Metaverse. They allow players to own part of the Metaverse and thus be able to build/host content (NFTs collections and digital experiences).";
+const baseUri = "ipfs://QmRZXQhHETBLoF7teCokThpJVGer7s9ER7U6kP1eM3zZTj/";
 
 const solanaMetadata = {
   symbol: "WOMLand",
