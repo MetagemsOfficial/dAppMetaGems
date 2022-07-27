@@ -1,0 +1,19 @@
+{
+  "CONTRACT_ADDRESS": "0x511828eBA36A3bF2F4d3d5cFaeF547A6A70eFe8B",
+  "SCAN_LINK": "https://etherscan.io/address/0x511828eBA36A3bF2F4d3d5cFaeF547A6A70eFe8B",
+  "NETWORK": {
+    "NAME": "Mainnet",
+    "SYMBOL": "ETH",
+    "ID": 1
+    
+  },
+  "NFT_NAME": "World Of MetaGems Land",
+  "SYMBOL": "WOML",
+  "MAX_SUPPLY": 1000,
+  "WEI_COST": 0,
+  "DISPLAY_COST": 0.00,
+  "GAS_LIMIT": 285000,
+  "MARKETPLACE": "Opeansea",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/womchosenoneland",
+  "SHOW_BACKGROUND": true
+}

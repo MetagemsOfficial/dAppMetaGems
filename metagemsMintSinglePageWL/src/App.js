@@ -107,7 +107,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNftSpecial, setClaimingNftSpecial] = useState(false);
-  const [feedbackSpecial, setFeedbackSpecial] = useState(`Click buy to mint your NFT.`);
+  const [feedbackSpecial, setFeedbackSpecial] = useState(``);
   const [claimingNftSupreme, setClaimingNftSupreme] = useState(false);
   const [feedbackSupreme, setFeedbackSupreme] = useState(`Click buy to mint your NFT.`);
  
@@ -442,7 +442,7 @@ function App() {
                     color: "var(--accent-text)",
                   }}
                 >
-                  {data.totalSupplySpecialLand} / {CONFIG.MAX_SUPPLYSPECIAL}
+                  {"AVAILABLE TOMORROW"}
                 </s.TextTitle>
                 <s.TextDescription
                   style={{
@@ -521,16 +521,7 @@ function App() {
                           Connect to the {CONFIG.NETWORK.NAME} network
                         </s.TextDescription>
                         <s.SpacerSmall />
-                        <StyledButton
-                          style={{ position: "absolute", bottom: 35 }}
-                         onClick={(e) => {
-                           e.preventDefault();
-                            dispatch(connect());
-                          getData();
-                         }}
-                        >
-                          CONNECT
-                        </StyledButton>
+                        
                         {blockchain.errorMsg !== "" ? (
                           <>
                             <s.SpacerSmall />
@@ -561,17 +552,7 @@ function App() {
                         </s.FlexContainer> 
                         <s.SpacerSmall />
                         <s.FlexContainer ai={"center"} jc={"center"} fd={"row"}>
-                          <StyledButton
-                            style={{ position: "absolute", bottom: 35 }}
-                            disabled={claimingNftSpecial ? 1 : 0}
-                            onClick={(e) => {
-                             e.preventDefault();
-                             claimNFTsSpecial();
-                            getData();
-                           }}
-                          >
-                            {claimingNftSpecial ? "BUSY" : "CLAIM"}
-                          </StyledButton>
+                        
                         </s.FlexContainer>
                       </>
                     )}

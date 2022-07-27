@@ -1,20 +1,20 @@
 {
-  "CONTRACT_ADDRESS": "0xeA89Fe172D155a23409f3275f567e56e66859Cb6",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/address/0xeA89Fe172D155a23409f3275f567e56e66859Cb6",
+  "CONTRACT_ADDRESS": "0x511828eBA36A3bF2F4d3d5cFaeF547A6A70eFe8B",
+  "SCAN_LINK": "https://etherscan.io/address/0x511828eBA36A3bF2F4d3d5cFaeF547A6A70eFe8B",
   "NETWORK": {
-    "NAME": "Rinkeby",
+    "NAME": "Mainnet",
     "SYMBOL": "ETH",
-    "ID": 4
+    "ID": 1
     
   },
   "NFT_NAME": "World Of MetaGems Land",
   "SYMBOL": "WOML",
-  "MAX_SUPPLYSUPREME": 500,
-  "MAX_SUPPLYSPECIAL": 500,
+  "MAX_SUPPLYSUPREME": 1000,
+  "MAX_SUPPLYSPECIAL": 1500,
   "WEI_COSTSUPREME": 0,
   "DISPLAY_COSTSUPREME": 0.00,
-  "WEI_COSTSPECIAL": 0,
-  "DISPLAY_COSTSPECIAL": 0.00,
+  "WEI_COSTSPECIAL": 2500000000000000,
+  "DISPLAY_COSTSPECIAL": 0.0025,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/metagemsgenesis",
