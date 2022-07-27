@@ -107,7 +107,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNftSupreme, setClaimingNftSupreme] = useState(false);
-  const [feedbackSupreme, setFeedbackSupreme] = useState(`Click claim to mint your NFT.`);
+  const [feedbackSupreme, setFeedbackSupreme] = useState(`You can claim up to 6 NFTs.`);
  
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
